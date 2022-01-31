@@ -1,0 +1,7 @@
+{
+  "name": "tiktok.clone.frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
