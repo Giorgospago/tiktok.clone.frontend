@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <form [formGroup]="form">
+        <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngFor="let msg of (errors?.['email'] || [])">{{ msg }}</ion-text>
+
+        <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngFor="let msg of (errors?.['password'] || [])">{{ msg }}</ion-text>
+
+        <ion-button [disabled]="form.invalid" (click)="login()" expand="block" color="tertiary">
+            Login
+        </ion-button>
+    </form>
+
+    <div class="ion-text-center">
+        <div class="ion-margin-top">
+            <ion-text color="secondary">Do not have an account yet?</ion-text>
+        </div>
+        <div class="ion-margin-top">
+            <ion-router-link routerLink="/register" color="tertiary">
+                Register now !
+            </ion-router-link>
+        </div>
+    </div>
+
+</ion-content>

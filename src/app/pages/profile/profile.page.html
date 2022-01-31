@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>My profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-avatar>
+        <img
+            [src]="user.photo"
+            [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"
+            alt="{{ user.name }}"
+        />
+    </ion-avatar>
+    <h1>{{ user.name }}</h1>
+
+    <ion-button color="danger" (click)="logout()">Logout</ion-button>
+</ion-content>
