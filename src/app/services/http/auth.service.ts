@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IAuthLoginData, IAuthLoginResult} from "../../interfaces/auth";
+import {IAuthLoginData, IAuthLoginResult, IAuthRegisterData} from "../../interfaces/auth";
 import {environment} from "../../../environments/environment";
 import {IResponse} from "../../interfaces/IReponse";
 import {LocalStorageService} from "ngx-webstorage";
@@ -18,6 +18,10 @@ export class AuthService {
 
     public login(data: IAuthLoginData) {
         return this.http.post<IResponse<IAuthLoginResult>>(`${environment.api}/auth/login`, data);
+    }
+
+    public register(data: IAuthRegisterData) {
+        return this.http.post<IResponse<IAuthLoginResult>>(`${environment.api}/auth/register`, data);
     }
 
     public logout() {
