@@ -19,8 +19,7 @@
         </ion-item>
         <ion-text color="danger" *ngFor="let msg of (errors?.['password'] || [])">{{ msg }}</ion-text>
 
-        <ion-button [disabled]="form.invalid" (click)="login()" expand="block" color="tertiary">
-            Login
+        <ion-button [disabled]="form.invalid" (click)="login()" expand="block" color="tertiary">            Login
         </ion-button>
     </form>
 

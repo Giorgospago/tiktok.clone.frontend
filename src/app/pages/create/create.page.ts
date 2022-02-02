@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CreateService} from "../../services/http/create.service";
 
 @Component({
   selector: 'app-create',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePage implements OnInit {
 
-  constructor() { }
+  constructor(
+      public createService: CreateService
+  ) { }
 
   ngOnInit() {
   }

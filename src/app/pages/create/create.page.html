@@ -6,4 +6,12 @@
 
 <ion-content>
 
+    <input type="file" (change)="createService.selectFromVideoInput($event)"/>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="tertiary" routerLink="details">
+            <ion-icon name="arrow-forward"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
 </ion-content>
