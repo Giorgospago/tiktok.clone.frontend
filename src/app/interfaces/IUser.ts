@@ -1,4 +1,5 @@
 import {IModel} from "./IModel";
+import {IPost} from "./IPost";
 
 export interface IUser extends IModel {
     name: string;
@@ -12,7 +13,7 @@ export interface IUser extends IModel {
     country: string;
     city: string;
     deviceTokens: string[];
-    posts: string[];
+    posts: string[] | IPost[] | any;
     following: string[];
     followers: string[];
     gender: string;

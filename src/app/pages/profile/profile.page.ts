@@ -3,6 +3,7 @@ import {LocalStorage} from "ngx-webstorage";
 import {IUser} from "../../interfaces/IUser";
 import {AuthService} from "../../services/http/auth.service";
 import {NavigationEnd, Router} from "@angular/router";
+import {UsersService} from "../../services/http/users.service";
 
 @Component({
     selector: 'app-profile',
@@ -18,6 +19,7 @@ export class ProfilePage implements OnInit {
 
     constructor(
         private authService: AuthService,
+        private usersService: UsersService,
         private router: Router
     ) {
     }
@@ -31,6 +33,10 @@ export class ProfilePage implements OnInit {
         });
     }
 
+    ionViewWillEnter() {
+        this.usersService.me().subscribe();
+    }
+
     public logout() {
         this.authService.logout();
         this.router.navigate(["/"]);
@@ -39,5 +45,12 @@ export class ProfilePage implements OnInit {
     public segmentChanged(event) {
         const url = `/profile/${event.detail.value}`;
         this.router.navigate([url]);
+    }
+
+    public doRefresh(event) {
+        this.usersService.me()
+            .subscribe(() => {
+                event.target.complete();
+            });
     }
 }

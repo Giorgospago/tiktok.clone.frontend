@@ -1,0 +1,22 @@
+
+.video-preview {
+    box-sizing: initial;
+    position: relative;
+    width: 90px;
+    height: 160px;
+    border: solid 2px crimson;
+    border-radius: 6px;
+    overflow: hidden;
+
+    .progress {
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    video {
+        width: 100%;
+        height: 100%;
+    }
+}

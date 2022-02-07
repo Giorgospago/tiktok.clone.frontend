@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {LocalStorage} from "ngx-webstorage";
+import {IUser} from "../../../../interfaces/IUser";
 
 @Component({
-  selector: 'app-mine',
-  templateUrl: './mine.page.html',
-  styleUrls: ['./mine.page.scss'],
+    selector: 'app-mine',
+    templateUrl: './mine.page.html',
+    styleUrls: ['./mine.page.scss'],
 })
 export class MinePage implements OnInit {
 
-  constructor() { }
+    @LocalStorage("user", {})
+    public user: IUser;
 
-  ngOnInit() {
-  }
+    constructor() {
+    }
+
+    ngOnInit() {
+    }
 
 }

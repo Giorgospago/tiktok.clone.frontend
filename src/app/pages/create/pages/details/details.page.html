@@ -7,6 +7,44 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    Test
-    <img [src]="path"/>
+    <div [formGroup]="form">
+        <div class="ion-float-left video-preview ion-margin-top ion-margin-start">
+            <div class="progress absolute-fill">
+                {{ createService.percentage }}%
+            </div>
+            <video autoplay muted loop>
+                <source [src]="path" type="video/mp4">
+            </video>
+        </div>
+        <div>
+            <ion-item>
+                <ion-label position="stacked">Description</ion-label>
+                <ion-textarea
+                    formControlName="description"
+                ></ion-textarea>
+            </ion-item>
+        </div>
+
+        <ion-segment mode="md" color="tertiary" formControlName="scope">
+            <ion-segment-button value="public" layout="icon-start">
+                <ion-label>Public</ion-label>
+                <ion-icon name="globe-outline"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="friends" layout="icon-start">
+                <ion-label>Friends</ion-label>
+                <ion-icon name="people-outline"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="private" layout="icon-start">
+                <ion-label>Private</ion-label>
+                <ion-icon name="lock-closed-outline"></ion-icon>
+            </ion-segment-button>
+        </ion-segment>
+
+        <ion-button (click)="uploadPost()" color="tertiary">
+            Publish
+        </ion-button>
+
+        <pre>{{ form?.value | json }}</pre>
+    </div>
+
 </ion-content>
