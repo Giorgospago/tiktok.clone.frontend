@@ -5,22 +5,34 @@
     </div>
 
     <div class="video-container">
-        <video autoplay #videoPreview></video>
+        <video autoplay muted #videoPreview></video>
     </div>
-
-    <!--<input type="file" (change)="createService.selectFromVideoInput($event)"/>-->
 
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
         <ion-fab-button
-            (mousedown)="startRecord()"
-            (mouseup)="stopRecord()"
+            (click)="toggleRecord()"
             color="danger"
         >
-            <ion-icon name="aperture-outline"></ion-icon>
+            <ion-icon
+                [name]="(startTime) ? 'stop': 'aperture-outline'"
+            ></ion-icon>
         </ion-fab-button>
     </ion-fab>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button
+            (click)="toggleCamera()"
+            color="secondary"
+        >
+            <ion-icon name="camera-reverse"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab *ngIf="createService.videoInput.path"
+             vertical="bottom"
+             horizontal="end"
+             slot="fixed"
+    >
         <ion-fab-button color="tertiary" routerLink="details">
             <ion-icon name="arrow-forward"></ion-icon>
         </ion-fab-button>

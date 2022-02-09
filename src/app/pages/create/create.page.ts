@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {CreateService} from "../../services/http/create.service";
 import * as RecordRTC from "recordrtc/RecordRTC";
 
@@ -12,6 +12,7 @@ export class CreatePage implements OnInit {
     @ViewChild("videoPreview", {static: true})
     public videoPreview;
 
+    public cameraPlace: boolean = true;
     public startTime: number = null;
 
     public recorder: RecordRTC;
@@ -111,13 +112,20 @@ export class CreatePage implements OnInit {
     };
 
     constructor(
-        public createService: CreateService
+        public createService: CreateService,
+        private cd: ChangeDetectorRef
     ) {
     }
 
     ngOnInit() {
+        this.initCamera();
+    }
+
+    public initCamera() {
         navigator.mediaDevices.getUserMedia({
-            video: true,
+            video: {
+                facingMode: this.cameraPlace ? "user" : "environment"
+            },
             audio: true
         }).then((stream: any) => {
             this.videoPreview.nativeElement.srcObject = stream;
@@ -125,9 +133,19 @@ export class CreatePage implements OnInit {
         });
     }
 
+    public toggleRecord() {
+        if (this.startTime === null) {
+            this.startRecord();
+        } else {
+            this.stopRecord();
+        }
+    }
+
     public startRecord() {
         this.startTime = Date.now();
         this.recorder.startRecording();
+        this.createService.videoInput.file = null;
+        this.createService.videoInput.path = "";
     }
 
     public stopRecord() {
@@ -138,6 +156,12 @@ export class CreatePage implements OnInit {
 
             this.createService.videoInput.file = file;
             this.createService.videoInput.path = URL.createObjectURL(file);
+            this.cd.detectChanges();
         });
+    }
+
+    public toggleCamera() {
+        this.cameraPlace = !this.cameraPlace;
+        this.initCamera();
     }
 }

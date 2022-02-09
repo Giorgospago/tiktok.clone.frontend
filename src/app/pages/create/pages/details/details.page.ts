@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {CreateService} from "../../../../services/http/create.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {IUploadPost} from "../../../../interfaces/IPost";
 
 @Component({
     selector: 'app-details',
