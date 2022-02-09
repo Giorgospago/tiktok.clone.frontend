@@ -1,0 +1,31 @@
+ion-content {
+    position: relative;
+}
+
+.time {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+
+    video {
+        display: block;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
+    }
+}

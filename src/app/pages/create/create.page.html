@@ -1,17 +1,28 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>create</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
-    <input type="file" (change)="createService.selectFromVideoInput($event)"/>
+    <div class="time" *ngIf="startTime">
+        {{ startTime | timeago }}
+    </div>
+
+    <div class="video-container">
+        <video autoplay #videoPreview></video>
+    </div>
+
+    <!--<input type="file" (change)="createService.selectFromVideoInput($event)"/>-->
+
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button
+            (mousedown)="startRecord()"
+            (mouseup)="stopRecord()"
+            color="danger"
+        >
+            <ion-icon name="aperture-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="tertiary" routerLink="details">
             <ion-icon name="arrow-forward"></ion-icon>
         </ion-fab-button>
     </ion-fab>
-
 </ion-content>

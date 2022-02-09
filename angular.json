@@ -40,7 +40,9 @@
                             "src/theme/variables.scss",
                             "src/global.scss"
                         ],
-                        "scripts": [],
+                        "scripts": [
+                            "node_modules/recordrtc/RecordRTC.min.js"
+                        ],
                         "aot": false,
                         "vendorChunk": true,
                         "extractLicenses": false,
