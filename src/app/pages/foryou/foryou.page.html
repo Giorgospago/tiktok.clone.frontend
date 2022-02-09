@@ -1,9 +1,20 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>foryou</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <div class="slide-container">
+        <swiper
+            #TikTokSlides
+            [slidesPerView]="1"
+            [spaceBetween]="0"
+            [virtual]="true"
+            [direction]="'vertical'"
+            (slideChange)="slideChange($event)"
+        >
+            <ng-container *ngFor="let slide of slides">
+                <ng-template swiperSlide>
+                    {{ slide.name }}
+                </ng-template>
+            </ng-container>
+        </swiper>
+    </div>
 
+    <pre>{{ slides | json }}</pre>
 </ion-content>
