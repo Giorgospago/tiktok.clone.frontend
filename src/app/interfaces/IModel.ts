@@ -3,4 +3,5 @@ export interface IModel {
 
     createdAt?: string | Date;
     updatedAt?: string | Date;
+    __v?: number;
 }

@@ -1,6 +1,8 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import SwiperCore, { Virtual } from 'swiper';
 import {SwiperComponent} from "swiper/angular";
+import {PostsService} from "../../services/http/posts.service";
+import {IPost} from "../../interfaces/IPost";
 
 // install Swiper modules
 SwiperCore.use([Virtual]);
@@ -16,9 +18,12 @@ export class ForyouPage implements OnInit {
     public TikTokSlides: SwiperComponent;
 
     public page: number = 0;
-    public slides = [];
+    public slides: IPost[] = [];
 
-    constructor(private cd: ChangeDetectorRef) {
+    constructor(
+        private postsService: PostsService,
+        private cd: ChangeDetectorRef
+    ) {
     }
 
     ngOnInit() {
@@ -26,25 +31,32 @@ export class ForyouPage implements OnInit {
     }
 
     public initSlides() {
-        this.slides.push(
-            {name: "Slide " + this.getRandomInt()},
-            {name: "Slide " + this.getRandomInt()}
-        );
+        this.slides = [];
+        this.addSlides();
+    }
+
+    public addSlides(limit: number = 2) {
+        // const seen = [];
+        // for (let post of this.slides) {
+        //     seen.push(post._id);
+        // }
+        const seen = this.slides.map(s => s._id);
+        this.postsService.search(limit, seen)
+            .subscribe(response => {
+                if (response.success) {
+                    this.slides.push(...response.data);
+                    this.cd.detectChanges();
+                }
+            });
     }
 
     public slideChange(event) {
         const swipe = event[0];
         if (swipe.previousIndex < swipe.activeIndex) {
-            // this.slides.push({name: "Slide " + this.getRandomInt()});
-            // if (this.slides.length > 3) {
-            //     this.slides.shift();
-            //     this.TikTokSlides.swiperRef.slidePrev();
-            // }
-            console.log("next");
-        } else {
-            console.log("previous");
+            if (swipe.activeIndex === this.slides.length - 1) {
+                this.addSlides(1);
+            }
         }
-        this.cd.detectChanges();
     }
 
     getRandomInt() {

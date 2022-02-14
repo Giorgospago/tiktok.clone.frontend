@@ -1,5 +1,5 @@
 <ion-content>
-    <div class="slide-container">
+    <div class="slide-container absolute-fill">
         <swiper
             #TikTokSlides
             [slidesPerView]="1"
@@ -10,11 +10,43 @@
         >
             <ng-container *ngFor="let slide of slides">
                 <ng-template swiperSlide>
-                    {{ slide.name }}
+                    <div class="post-container absolute-fill">
+                        <video autoplay muted loop>
+                            <source [src]="slide.videoUrl" type="video/mp4">
+                        </video>
+
+                        <div class="post-data-container absolute-fill d-flex">
+                            <div class="flex-grow-1 d-flex flex-column">
+                                <div class="flex-grow-1"></div>
+                                <div class="post-info fs-8">
+                                    <div class="fw-bold">@{{ slide.user?.name }}</div>
+                                    <div>{{ slide.description }}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="flex-grow-1"></div>
+                                <div class="">
+                                    User
+                                </div>
+                                <div class="">
+                                    Like
+                                </div>
+                                <div class="">
+                                    Comment
+                                </div>
+                                <div class="">
+                                    Share
+                                </div>
+                                <div class="">
+                                    Sound
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </ng-template>
             </ng-container>
         </swiper>
     </div>
-
-    <pre>{{ slides | json }}</pre>
 </ion-content>
