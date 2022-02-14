@@ -18,7 +18,7 @@ export class ForyouPage implements OnInit {
     public TikTokSlides: SwiperComponent;
 
     public page: number = 0;
-    public slides: IPost[] = [];
+    public posts: IPost[] = [];
 
     constructor(
         private postsService: PostsService,
@@ -31,7 +31,7 @@ export class ForyouPage implements OnInit {
     }
 
     public initSlides() {
-        this.slides = [];
+        this.posts = [];
         this.addSlides();
     }
 
@@ -40,11 +40,11 @@ export class ForyouPage implements OnInit {
         // for (let post of this.slides) {
         //     seen.push(post._id);
         // }
-        const seen = this.slides.map(s => s._id);
+        const seen = this.posts.map(s => s._id);
         this.postsService.search(limit, seen)
             .subscribe(response => {
                 if (response.success) {
-                    this.slides.push(...response.data);
+                    this.posts.push(...response.data);
                     this.cd.detectChanges();
                 }
             });
@@ -53,14 +53,20 @@ export class ForyouPage implements OnInit {
     public slideChange(event) {
         const swipe = event[0];
         if (swipe.previousIndex < swipe.activeIndex) {
-            if (swipe.activeIndex === this.slides.length - 1) {
+            if (swipe.activeIndex === this.posts.length - 1) {
                 this.addSlides(1);
             }
         }
     }
 
-    getRandomInt() {
-        return Math.floor(Math.random() * 1000);
+    togglePost(post: IPost) {
+        this.postsService.like(post._id)
+            .subscribe(response => {
+                if (response.success) {
+                    post.liked = response.data.liked;
+                    post.likes = response.data.likes;
+                }
+            });
     }
 
 }

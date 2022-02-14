@@ -5,6 +5,7 @@ import {IonicModule} from '@ionic/angular';
 import {ForyouPageRoutingModule} from './foryou-routing.module';
 import {ForyouPage} from './foryou.page';
 import {SwiperModule} from 'swiper/angular';
+import {ImgFallbackModule} from "ngx-img-fallback";
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import {SwiperModule} from 'swiper/angular';
         FormsModule,
         IonicModule,
         ForyouPageRoutingModule,
-        SwiperModule
+        SwiperModule,
+        ImgFallbackModule
     ],
     declarations: [ForyouPage]
 })

@@ -12,6 +12,7 @@ export interface IPost extends IModel {
     active: boolean;
     scope: PostScope;
     comments: any[];
+    liked?: boolean;
     likes: any[];
     views: any[];
     shares: any[];

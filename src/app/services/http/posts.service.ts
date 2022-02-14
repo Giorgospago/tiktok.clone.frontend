@@ -22,4 +22,8 @@ export class PostsService {
         });
     }
 
+    public like(postId: string) {
+        return this.http.get<IResponse<any>>(environment.api + `/posts/${postId}/like`);
+    }
+
 }
