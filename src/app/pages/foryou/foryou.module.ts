@@ -6,6 +6,7 @@ import {ForyouPageRoutingModule} from './foryou-routing.module';
 import {ForyouPage} from './foryou.page';
 import {SwiperModule} from 'swiper/angular';
 import {ImgFallbackModule} from "ngx-img-fallback";
+import {CommentsPage} from "../comments/comments.page";
 
 @NgModule({
     imports: [
@@ -16,7 +17,10 @@ import {ImgFallbackModule} from "ngx-img-fallback";
         SwiperModule,
         ImgFallbackModule
     ],
-    declarations: [ForyouPage]
+    declarations: [
+        ForyouPage,
+        CommentsPage
+    ]
 })
 export class ForyouPageModule {
 }

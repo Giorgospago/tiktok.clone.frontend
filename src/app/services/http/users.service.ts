@@ -29,4 +29,8 @@ export class UsersService {
             );
     }
 
+    public follow(userId: string) {
+        return this.http.get<IResponse<any>>(environment.api + '/users/follow/' + userId);
+    }
+
 }

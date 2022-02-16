@@ -4,6 +4,7 @@ import {LocalStorageService} from "ngx-webstorage";
 import {environment} from "../../../environments/environment";
 import {IResponse} from "../../interfaces/IReponse";
 import {IPost} from "../../interfaces/IPost";
+import {IComment} from "../../interfaces/IComment";
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,18 @@ export class PostsService {
 
     public like(postId: string) {
         return this.http.get<IResponse<any>>(environment.api + `/posts/${postId}/like`);
+    }
+
+    public getComments(postId: string) {
+        return this.http.get<IResponse<IComment[]>>(environment.api + `/posts/${postId}/comments`);
+    }
+
+    public addComment(postId: string, text: string, commentId?: string) {
+        return this.http.post<IResponse<any>>(environment.api + `/posts/${postId}/comments`, {
+            post: postId,
+            text: text,
+            comment: commentId
+        });
     }
 
 }

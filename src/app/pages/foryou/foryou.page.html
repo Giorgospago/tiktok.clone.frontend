@@ -25,34 +25,51 @@
                             </div>
                             <div class="d-flex flex-column text-center">
                                 <div class="flex-grow-1"></div>
-                                <div class="">
-                                    <ion-avatar>
+                                <div class="mb-4 position-relative">
+                                    <ion-avatar class="side-avatar">
                                         <img
                                             [src]="post.user.photo"
                                             [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + post.user.name"
                                             alt="{{ post.user.name }}"
                                         />
                                     </ion-avatar>
+                                    <div *ngIf="!post.user.following" class="follow-btn">
+                                        <ion-icon
+                                            (click)="follow(post)"
+                                            name="add-circle"
+                                            color="danger"
+                                        ></ion-icon>
+                                    </div>
                                 </div>
-                                <div class="">
+                                <div class="mb-3">
                                     <ion-icon
-                                        class="fs-1"
+                                        class="side-icon"
                                         name="heart"
                                         [color]="post.liked ? 'danger' : ''"
                                         (click)="togglePost(post)"
                                     ></ion-icon>
-                                    <div>{{ post.likes }}</div>
+                                    <div class="side-text">{{ post.likes }}</div>
+                                </div>
+                                <div class="mb-3">
+                                    <ion-icon
+                                        class="side-icon"
+                                        name="chatbubble-ellipses"
+                                        (click)="showComments(post._id)"
+                                    ></ion-icon>
+                                    <div class="side-text">{{ post.comments }}</div>
+                                </div>
+                                <div class="mb-5">
+                                    <ion-icon
+                                        class="side-icon"
+                                        name="arrow-redo"
+                                    ></ion-icon>
+                                    <div class="side-text">{{ post.shares }}</div>
                                 </div>
                                 <div class="">
-                                    Comment
-                                    <div>{{ post.comments }}</div>
-                                </div>
-                                <div class="">
-                                    Share
-                                    <div>{{ post.shares }}</div>
-                                </div>
-                                <div class="">
-                                    Sound
+                                    <ion-icon
+                                        class="side-icon"
+                                        name="musical-notes"
+                                    ></ion-icon>
                                 </div>
                             </div>
                         </div>

@@ -23,3 +23,39 @@
         }
     }
 }
+
+.follow-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(50%);
+    display: flex;
+    border-radius: 100%;
+
+    ion-icon {
+        &:before {
+            content: "";
+            position: absolute;
+            border-radius: 100%;
+            width: 10px;
+            height: 10px;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            background-color: white;
+            z-index: -1;
+        }
+    }
+}
+
+.side-avatar {
+
+}
+.side-icon {
+    font-size: 2.2rem;
+}
+.side-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: -0.5rem;
+}

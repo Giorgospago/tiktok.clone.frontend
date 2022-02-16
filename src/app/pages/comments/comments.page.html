@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{ comments.length }} {{ comments.length === 1 ? "comment" : "comments" }}</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="remove"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let comment of comments">
+            <ion-avatar slot="start">
+                <img [src]="comment.user.photo" />
+            </ion-avatar>
+            <ion-label>
+                <h2>{{ comment.text }}</h2>
+                <h3>{{ comment.user.name }}</h3>
+                <p>{{ comment.createdAt | date: "short" }}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-avatar slot="start">
+            <img [src]="user.photo"/>
+        </ion-avatar>
+
+        <ion-searchbar
+            (ionChange)="setCommentText($event)"
+            searchIcon="-"
+            placeholder="Your comment here..."
+            inputmode="text"
+        ></ion-searchbar>
+
+        <ion-buttons slot="end">
+            <ion-button (click)="addComment()">
+                <ion-icon name="send"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>
