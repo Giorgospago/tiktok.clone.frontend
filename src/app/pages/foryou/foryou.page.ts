@@ -8,6 +8,7 @@ import {LocalStorage} from "ngx-webstorage";
 import {IUser} from "../../interfaces/IUser";
 import {ModalController} from "@ionic/angular";
 import {CommentsPage} from "../comments/comments.page";
+import { Router } from '@angular/router';
 
 // install Swiper modules
 SwiperCore.use([Virtual]);
@@ -32,12 +33,17 @@ export class ForyouPage implements OnInit {
         private postsService: PostsService,
         private usersService: UsersService,
         private cd: ChangeDetectorRef,
-        public modalController: ModalController
+        public modalController: ModalController,
+        private router: Router
     ) {
     }
 
     ngOnInit() {
         this.initSlides();
+    }
+
+    public userProfile(postUserId: string) {
+        this.usersService.userProfile(postUserId);
     }
 
     public initSlides() {

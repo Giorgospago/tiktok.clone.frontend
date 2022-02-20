@@ -53,4 +53,12 @@ export class ProfilePage implements OnInit {
                 event.target.complete();
             });
     }
+
+    public userFollowers(userId: string) {
+        // console.log(user);
+    }
+
+    public userFollowing(userId: string) {
+        this.usersService.userFollowing(userId)
+    }
 }

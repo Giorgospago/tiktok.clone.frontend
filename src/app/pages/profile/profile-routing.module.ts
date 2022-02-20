@@ -5,12 +5,16 @@ import {ProfilePage} from './profile.page';
 
 const routes: Routes = [
     {
+        path: ':id',
+        loadChildren: () => import('./pages/user/user.module').then( m => m.UserPageModule),
+    },
+    {
         path: '',
         component: ProfilePage,
         children: [
             {
                 path: '',
-                loadChildren: () => import('./pages/mine/mine.module').then(m => m.MinePageModule)
+                loadChildren: () => import('./pages/mine/mine.module').then(m => m.MinePageModule),
             },
             {
                 path: 'favorites',
@@ -18,6 +22,14 @@ const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'followers',
+        loadChildren: () => import('./pages/followers/followers.module').then( m => m.FollowersPageModule)
+    },
+    {
+        path: ':id/following',
+        loadChildren: () => import('./pages/following/following.module').then( m => m.FollowingPageModule)
+    }
 ];
 
 @NgModule({

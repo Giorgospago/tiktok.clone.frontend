@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>{{ user.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-avatar align="center">
+      <img
+          [src]="user.photo"
+          [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"
+          alt="{{ user.name }}"
+      />
+  </ion-avatar>
+
+  <ion-segment mode="md" (ionChange)="segmentChanged($event)" [value]="segment">
+      <ion-segment-button value="">
+          <ion-label>Video</ion-label>
+      </ion-segment-button>
+  </ion-segment>
+
+  <router-outlet></router-outlet>
+
+</ion-content>
