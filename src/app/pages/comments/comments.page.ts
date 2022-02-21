@@ -4,6 +4,7 @@ import {PostsService} from "../../services/http/posts.service";
 import {IComment} from "../../interfaces/IComment";
 import {LocalStorage} from "ngx-webstorage";
 import {IUser} from "../../interfaces/IUser";
+import { UsersService } from 'src/app/services/http/users.service';
 
 @Component({
     selector: 'app-comments',
@@ -24,12 +25,18 @@ export class CommentsPage implements OnInit {
 
     constructor(
         private modalController: ModalController,
-        private postsService: PostsService
+        private postsService: PostsService,
+        private usersService: UsersService
     ) {
     }
 
     ngOnInit() {
         this.initComments();
+    }
+
+    public userProfile(commentUserId: string) {
+        this.dismiss();
+        this.usersService.userProfile(commentUserId);
     }
 
     public initComments() {

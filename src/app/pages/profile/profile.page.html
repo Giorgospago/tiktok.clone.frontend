@@ -8,16 +8,34 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-avatar>
+    <ion-avatar class="mx-auto mt-2">
         <img
             [src]="user.photo"
             [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"
             alt="{{ user.name }}"
         />
     </ion-avatar>
-    <h1>{{ user.name }}</h1>
+    <h1 class="text-center">{{ user.name }}</h1>
 
-    <ion-button color="danger" (click)="logout()">Logout</ion-button>
+    <div class="d-flex justify-content-evenly">
+        <div class="followers d-flex flex-column text-center" (click)="userFollowers(user.followers)">
+            <span class="number fw-bold">
+                {{ user.followers.length }}
+            </span>
+            <span class="name">followers</span>
+        </div>
+        <div class="following d-flex flex-column text-center" (click)="userFollowing(user.following)">
+            <span class="number fw-bold">
+                {{ user.following.length }}
+            </span>
+            <span class="name">following</span>
+        </div>
+        <!-- <div class="liked"></div> -->
+    </div>
+
+    <div class="text-center">
+        <ion-button color="danger" (click)="logout()">Logout</ion-button>
+    </div>
 
     <ion-segment mode="md" (ionChange)="segmentChanged($event)" [value]="segment">
         <ion-segment-button value="">

@@ -5,15 +5,20 @@ import {IResponse} from "../../interfaces/IReponse";
 import {LocalStorageService} from "ngx-webstorage";
 import {IUser} from "../../interfaces/IUser";
 import {tap} from "rxjs/operators";
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsersService {
 
+    public user: IUser;
+    public following: IUser[] = [];
+
     constructor(
         private http: HttpClient,
-        private ls: LocalStorageService
+        private ls: LocalStorageService,
+        private router: Router
     ) {
     }
 
@@ -33,4 +38,23 @@ export class UsersService {
         return this.http.get<IResponse<any>>(environment.api + '/users/follow/' + userId);
     }
 
+    public userProfile(userPostId: string) {
+        return this.http.get<IResponse<any>>(`${environment.api}/users/profile/${userPostId}`)
+            .subscribe(response => {
+                if (response.success) {
+                    this.user = response.data;
+                    this.router.navigate([`profile/${userPostId}`]);
+                }
+            });
+    }
+
+    public userFollowing(userId: string) {
+        return this.http.get<IResponse<any>>(`${environment.api}/users/profile/${userId}/following`)
+            .subscribe(response => {
+                if (response.success) {
+                    this.router.navigate([`profile/${userId}/following`]);
+                    this.following = response.data;
+                }
+            });
+    }
 }
