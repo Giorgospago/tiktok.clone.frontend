@@ -1,22 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { IUser } from 'src/app/interfaces/IUser';
-import { UsersService } from 'src/app/services/http/users.service';
+import {Component, OnInit} from '@angular/core';
+import {IUser} from 'src/app/interfaces/IUser';
+import {UsersService} from 'src/app/services/http/users.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-	selector: 'app-following',
-	templateUrl: './following.page.html',
-	styleUrls: ['./following.page.scss'],
+    selector: 'app-following',
+    templateUrl: './following.page.html',
+    styleUrls: ['./following.page.scss'],
 })
 export class FollowingPage implements OnInit {
 
-	public users: IUser[] = [];
+    public paramsId: string;
+    public users: IUser[] = [];
 
-	constructor(
-		private usersService: UsersService
-	) { }
+    constructor(
+        private route: ActivatedRoute,
+        private usersService: UsersService
+    ) {
+    }
 
-	ngOnInit() {
-		this.users = this.usersService.following;
-	}
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.paramsId = params.id;
+            this.getUsers();
+        });
+    }
+
+    public getUsers() {
+        this.usersService
+            .userFollowing(this.paramsId)
+            .subscribe(response => {
+                if (response.success) {
+                    this.users = response.data;
+                }
+            });
+    }
 
 }

@@ -18,13 +18,13 @@
     <h1 class="text-center">{{ user.name }}</h1>
 
     <div class="d-flex justify-content-evenly">
-        <div class="followers d-flex flex-column text-center" (click)="userFollowers(user.followers)">
+        <div class="followers d-flex flex-column text-center" [routerLink]="['/profile', user._id, 'followers']">
             <span class="number fw-bold">
                 {{ user.followers.length }}
             </span>
             <span class="name">followers</span>
         </div>
-        <div class="following d-flex flex-column text-center" (click)="userFollowing(user.following)">
+        <div class="following d-flex flex-column text-center" [routerLink]="['/profile', user._id, 'following']">
             <span class="number fw-bold">
                 {{ user.following.length }}
             </span>

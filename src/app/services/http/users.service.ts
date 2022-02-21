@@ -49,12 +49,6 @@ export class UsersService {
     }
 
     public userFollowing(userId: string) {
-        return this.http.get<IResponse<any>>(`${environment.api}/users/profile/${userId}/following`)
-            .subscribe(response => {
-                if (response.success) {
-                    this.router.navigate([`profile/${userId}/following`]);
-                    this.following = response.data;
-                }
-            });
+        return this.http.get<IResponse<IUser[]>>(`${environment.api}/users/profile/${userId}/following`);
     }
 }
