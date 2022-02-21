@@ -11,18 +11,10 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item *ngFor="let comment of comments">
-            <ion-avatar slot="start" (click)="userProfile(comment.user._id)">
-                <img [src]="comment.user.photo" />
-            </ion-avatar>
-            <ion-label>
-                <h2>{{ comment.text }}</h2>
-                <h3>{{ comment.user.name }}</h3>
-                <p>{{ comment.createdAt | date: "short" }}</p>
-            </ion-label>
-        </ion-item>
-    </ion-list>
+    <app-deep-comments
+        (clicked)="replyTo($event)"
+        [comments]="comments"
+    ></app-deep-comments>
 </ion-content>
 
 <ion-footer>
@@ -31,12 +23,23 @@
             <img [src]="user.photo"/>
         </ion-avatar>
 
-        <ion-searchbar
-            (ionChange)="setCommentText($event)"
-            searchIcon="-"
-            placeholder="Your comment here..."
-            inputmode="text"
-        ></ion-searchbar>
+        <div>
+            <div *ngIf="replyComment">
+                <div class="text-muted text-truncate">
+                    <ion-icon
+                        name="close-circle-outline"
+                        (click)="cancelReply()"
+                    ></ion-icon>
+                    <b>reply to:</b> {{ replyComment.text }}
+                </div>
+            </div>
+            <ion-searchbar
+                (ionChange)="setCommentText($event)"
+                searchIcon="-"
+                placeholder="Your comment here..."
+                inputmode="text"
+            ></ion-searchbar>
+        </div>
 
         <ion-buttons slot="end">
             <ion-button (click)="addComment()">

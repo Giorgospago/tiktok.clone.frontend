@@ -1,0 +1,25 @@
+<div *ngFor="let comment of comments">
+    <div class="d-flex" (click)="emitReply(comment)">
+        <div>
+            <ion-badge
+                color="primary"
+                *ngIf="comment.replies"
+                (click)="cs.open[comment._id] = !cs.open[comment._id]"
+            >
+                <ion-icon name="caret-down-circle-outline"></ion-icon>
+            </ion-badge>
+        </div>
+        <div class="flex-grow-1">
+            {{ comment.text }}
+        </div>
+    </div>
+
+    <div class="ps-3" *ngIf="comment.replies">
+        <app-deep-comments
+            *ngIf="cs.open[comment._id]"
+            (clicked)="emitReply($event)"
+            [parent]="comment._id"
+        ></app-deep-comments>
+    </div>
+
+</div>

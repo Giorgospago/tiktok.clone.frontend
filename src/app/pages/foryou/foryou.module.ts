@@ -7,6 +7,7 @@ import {ForyouPage} from './foryou.page';
 import {SwiperModule} from 'swiper/angular';
 import {ImgFallbackModule} from "ngx-img-fallback";
 import {CommentsPage} from "../comments/comments.page";
+import {DeepCommentsModule} from "../../components/deep-comments/deep-comments.module";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {CommentsPage} from "../comments/comments.page";
         IonicModule,
         ForyouPageRoutingModule,
         SwiperModule,
-        ImgFallbackModule
+        ImgFallbackModule,
+        DeepCommentsModule
     ],
     declarations: [
         ForyouPage,

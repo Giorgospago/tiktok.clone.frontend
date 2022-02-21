@@ -4,7 +4,7 @@ import {PostsService} from "../../services/http/posts.service";
 import {IComment} from "../../interfaces/IComment";
 import {LocalStorage} from "ngx-webstorage";
 import {IUser} from "../../interfaces/IUser";
-import { UsersService } from 'src/app/services/http/users.service';
+import {UsersService} from 'src/app/services/http/users.service';
 
 @Component({
     selector: 'app-comments',
@@ -20,6 +20,7 @@ export class CommentsPage implements OnInit {
     public postId: string;
 
     public commentText: string = "";
+    public replyComment: IComment;
 
     public comments: IComment[] = [];
 
@@ -59,12 +60,19 @@ export class CommentsPage implements OnInit {
     }
 
     public addComment() {
-        this.postsService.addComment(this.postId, this.commentText)
+        this.postsService.addComment(this.postId, this.commentText, this.replyComment?._id)
             .subscribe(response => {
                 if (response.success) {
-
                     this.initComments();
                 }
             });
+    }
+
+    public replyTo(comment: IComment) {
+        this.replyComment = comment;
+    }
+
+    public cancelReply() {
+        this.replyComment = null;
     }
 }
