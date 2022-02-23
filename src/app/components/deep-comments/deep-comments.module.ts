@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DeepCommentsComponent} from "./deep-comments.component";
+import {IonicModule} from "@ionic/angular";
 
 
 @NgModule({
@@ -8,7 +9,8 @@ import {DeepCommentsComponent} from "./deep-comments.component";
         DeepCommentsComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        IonicModule
     ],
     exports: [
         DeepCommentsComponent

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CreateService} from "../../services/http/create.service";
 import * as RecordRTC from "recordrtc/RecordRTC";
 
@@ -10,7 +10,7 @@ import * as RecordRTC from "recordrtc/RecordRTC";
 export class CreatePage implements OnInit {
 
     @ViewChild("videoPreview", {static: true})
-    public videoPreview;
+    public videoPreview: ElementRef<HTMLVideoElement>;
 
     public cameraPlace: boolean = true;
     public startTime: number = null;
@@ -122,6 +122,7 @@ export class CreatePage implements OnInit {
     }
 
     public initCamera() {
+        this.videoPreview.nativeElement.volume = 0;
         navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: this.cameraPlace ? "user" : "environment"

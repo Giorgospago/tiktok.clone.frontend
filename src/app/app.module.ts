@@ -11,7 +11,9 @@ import {NgxWebstorageModule} from "ngx-webstorage";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [
+        AppComponent
+    ],
     entryComponents: [],
     imports: [
         BrowserModule,
@@ -28,7 +30,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
