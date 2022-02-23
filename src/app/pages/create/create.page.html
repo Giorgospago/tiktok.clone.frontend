@@ -5,8 +5,17 @@
     </div>
 
     <div class="video-container">
-        <video autoplay #videoPreview></video>
+        <video autoplay appMute #videoPreview></video>
     </div>
+
+    <label class="file-selector">
+        <input
+            class="d-none"
+            type="file"
+            accept="video/*"
+            (change)="selectFile($event)"
+        />
+    </label>
 
     <ion-fab vertical="bottom" horizontal="center" slot="fixed">
         <ion-fab-button

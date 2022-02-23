@@ -122,7 +122,6 @@ export class CreatePage implements OnInit {
     }
 
     public initCamera() {
-        this.videoPreview.nativeElement.volume = 0;
         navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: this.cameraPlace ? "user" : "environment"
@@ -164,5 +163,12 @@ export class CreatePage implements OnInit {
     public toggleCamera() {
         this.cameraPlace = !this.cameraPlace;
         this.initCamera();
+    }
+
+    public selectFile(event) {
+        const file = event.target.files[0];
+        this.createService.videoInput.file = file;
+        this.createService.videoInput.path = URL.createObjectURL(file);
+        this.cd.detectChanges();
     }
 }

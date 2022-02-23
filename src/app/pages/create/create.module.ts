@@ -5,6 +5,7 @@ import {IonicModule} from '@ionic/angular';
 import {CreatePageRoutingModule} from './create-routing.module';
 import {CreatePage} from './create.page';
 import {TimeagoModule} from "ngx-timeago";
+import {MuteVideoModule} from "../../directives/mute-video/mute-video.module";
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import {TimeagoModule} from "ngx-timeago";
         FormsModule,
         IonicModule,
         CreatePageRoutingModule,
-        TimeagoModule.forChild()
+        TimeagoModule.forChild(),
+        MuteVideoModule
     ],
     declarations: [CreatePage]
 })

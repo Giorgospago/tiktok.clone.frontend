@@ -29,3 +29,20 @@ ion-content {
         width: 100%;
     }
 }
+
+.file-selector {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 42px;
+    height: 42px;
+    border: solid 2px white;
+    border-radius: 4px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: lightgray;
+    background-image: url('/assets/images/file-selector.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
