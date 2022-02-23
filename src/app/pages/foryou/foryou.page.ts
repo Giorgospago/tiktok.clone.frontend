@@ -1,11 +1,9 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import SwiperCore, { Virtual } from 'swiper';
 import {SwiperComponent} from "swiper/angular";
 import {PostsService} from "../../services/http/posts.service";
 import {IPost} from "../../interfaces/IPost";
 import {UsersService} from "../../services/http/users.service";
-import {LocalStorage} from "ngx-webstorage";
-import {IUser} from "../../interfaces/IUser";
 import {ModalController} from "@ionic/angular";
 import {CommentsPage} from "../comments/comments.page";
 import { Router } from '@angular/router';
@@ -23,8 +21,8 @@ export class ForyouPage implements OnInit {
     @ViewChild("TikTokSlides", {static: false})
     public TikTokSlides: SwiperComponent;
 
-    // @LocalStorage("user")
-    // public user: IUser;
+    @ViewChildren("video")
+    public videos: QueryList<ElementRef<HTMLVideoElement>>;
 
     public page: number = 0;
     public posts: IPost[] = [];
@@ -39,39 +37,74 @@ export class ForyouPage implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    ionViewWillEnter() {
         this.initSlides();
+    }
+
+    ionViewWillLeave() {
+        this.posts = [];
+        this.cd.detectChanges();
+        this.handleVideo(-1);
     }
 
     public userProfile(postUserId: string) {
         this.usersService.userProfile(postUserId);
     }
 
-    public initSlides() {
+    public async initSlides() {
         this.posts = [];
-        this.addSlides();
+        await this.addSlides();
+        this.handleVideo();
     }
 
     public addSlides(limit: number = 2) {
-        // const seen = [];
-        // for (let post of this.slides) {
-        //     seen.push(post._id);
-        // }
-        const seen = this.posts.map(s => s._id);
-        this.postsService.search(limit, seen)
-            .subscribe(response => {
-                if (response.success) {
-                    this.posts.push(...response.data);
-                    this.cd.detectChanges();
-                }
-            });
+        return new Promise(resolve => {
+            const seen = this.posts.map(s => s._id);
+            this.postsService.search(limit, seen)
+                .subscribe(response => {
+                    if (response.success) {
+                        this.posts.push(...response.data);
+                        this.cd.detectChanges();
+                    }
+                    resolve(true);
+                });
+        });
     }
 
-    public slideChange(event) {
+    public async slideChange(event) {
         const swipe = event[0];
         if (swipe.previousIndex < swipe.activeIndex) {
             if (swipe.activeIndex === this.posts.length - 1) {
-                this.addSlides(1);
+                await this.addSlides(1);
             }
+        }
+
+        setTimeout(() => {
+            const activeVideo = (swipe.activeIndex === 0) ? 0 : 1;
+            this.handleVideo(activeVideo);
+        }, 10);
+    }
+
+    public handleVideo(idx: number = 0) {
+        for (let i = 0; i < this.videos.length; i++) {
+            if (i === idx) {
+                this.videos.get(i).nativeElement.volume = 1;
+                this.videos.get(i).nativeElement.play();
+            } else {
+                this.videos.get(i).nativeElement.volume = 0;
+                this.videos.get(i).nativeElement.currentTime = 0;
+                this.videos.get(i).nativeElement.pause();
+            }
+        }
+    }
+
+    public toggleVideo(video: HTMLVideoElement) {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
         }
     }
 

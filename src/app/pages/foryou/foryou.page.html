@@ -11,13 +11,16 @@
             <ng-container *ngFor="let post of posts">
                 <ng-template swiperSlide>
                     <div class="post-container absolute-fill">
-                        <video autoplay muted loop>
+                        <video #video autoplay loop volume="0">
                             <source [src]="post.videoUrl" type="video/mp4">
                         </video>
 
                         <div class="post-data-container absolute-fill d-flex">
                             <div class="flex-grow-1 d-flex flex-column">
-                                <div class="flex-grow-1"></div>
+                                <div
+                                    class="flex-grow-1"
+                                    (click)="toggleVideo(video)"
+                                ></div>
                                 <div class="post-info fs-8">
                                     <div class="fw-bold">@{{ post.user?.name }}</div>
                                     <div>{{ post.description }}</div>
