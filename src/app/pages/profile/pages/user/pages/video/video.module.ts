@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { VideoPageRoutingModule } from './video-routing.module';
 
 import { VideoPage } from './video.page';
+import {MuteVideoModule} from "../../../../../../directives/mute-video/mute-video.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    VideoPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        VideoPageRoutingModule,
+        MuteVideoModule
+    ],
   declarations: [VideoPage]
 })
 export class VideoPageModule {}

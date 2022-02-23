@@ -30,6 +30,14 @@ export class CreateService {
         this.videoInput.path = URL.createObjectURL(event.target.files[0]);
     }
 
+    public resetVideoInput() {
+        this.videoInput = {
+            file: null,
+            path: "",
+            live: ""
+        };
+    }
+
     public uploadVideo() {
         this.percentage = 0;
         const form = new FormData();
@@ -65,13 +73,10 @@ export class CreateService {
     }
 
     public uploadPost(form: IUploadPost) {
-
-        console.log(form);
-
         this.http
             .post(environment.api + "/posts/create", form)
             .subscribe(response => {
-                console.log(response);
+                this.resetVideoInput();
                 this.router.navigate(["/profile"]);
             });
     }
