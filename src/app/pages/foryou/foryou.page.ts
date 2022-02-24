@@ -1,11 +1,11 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import SwiperCore, { Virtual } from 'swiper';
-import {SwiperComponent} from "swiper/angular";
-import {PostsService} from "../../services/http/posts.service";
-import {IPost} from "../../interfaces/IPost";
-import {UsersService} from "../../services/http/users.service";
-import {ModalController} from "@ionic/angular";
-import {CommentsPage} from "../comments/comments.page";
+import { SwiperComponent } from "swiper/angular";
+import { PostsService } from "../../services/http/posts.service";
+import { IPost } from "../../interfaces/IPost";
+import { UsersService } from "../../services/http/users.service";
+import { ModalController } from "@ionic/angular";
+import { CommentsPage } from "../comments/comments.page";
 import { Router } from '@angular/router';
 
 // install Swiper modules
@@ -18,7 +18,7 @@ SwiperCore.use([Virtual]);
 })
 export class ForyouPage implements OnInit {
 
-    @ViewChild("TikTokSlides", {static: false})
+    @ViewChild("TikTokSlides", { static: false })
     public TikTokSlides: SwiperComponent;
 
     @ViewChildren("video")
@@ -47,10 +47,6 @@ export class ForyouPage implements OnInit {
         this.posts = [];
         this.cd.detectChanges();
         this.handleVideo(-1);
-    }
-
-    public userProfile(postUserId: string) {
-        this.usersService.userProfile(postUserId);
     }
 
     public async initSlides() {

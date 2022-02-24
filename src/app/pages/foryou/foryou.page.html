@@ -12,7 +12,7 @@
                 <ng-template swiperSlide>
                     <div class="post-container absolute-fill">
                         <video #video autoplay loop volume="0">
-                            <source [src]="post.videoUrl" type="video/mp4">
+                            <source [src]="post.videoUrl" type="video/mp4" />
                         </video>
 
                         <div class="post-data-container absolute-fill d-flex">
@@ -22,21 +22,32 @@
                                     (click)="toggleVideo(video)"
                                 ></div>
                                 <div class="post-info fs-8">
-                                    <div class="fw-bold">@{{ post.user?.name }}</div>
+                                    <div
+                                        class="fw-bold"
+                                        [routerLink]="['/profile', post.user._id]"
+                                    >
+                                        @{{ post.user?.name }}
+                                    </div>
                                     <div>{{ post.description }}</div>
                                 </div>
                             </div>
                             <div class="d-flex flex-column text-center">
                                 <div class="flex-grow-1"></div>
                                 <div class="mb-4 position-relative">
-                                    <ion-avatar class="side-avatar" (click)="userProfile(post.user._id)">
+                                    <ion-avatar
+                                        class="side-avatar"
+                                        [routerLink]="['/profile', post.user._id]"
+                                    >
                                         <img
                                             [src]="post.user.photo"
                                             [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + post.user.name"
                                             alt="{{ post.user.name }}"
                                         />
                                     </ion-avatar>
-                                    <div *ngIf="!post.user.following" class="follow-btn">
+                                    <div
+                                        *ngIf="!post.user.following"
+                                        class="follow-btn"
+                                    >
                                         <ion-icon
                                             (click)="follow(post)"
                                             name="add-circle"
@@ -51,7 +62,9 @@
                                         [color]="post.liked ? 'danger' : ''"
                                         (click)="togglePost(post)"
                                     ></ion-icon>
-                                    <div class="side-text">{{ post.likes }}</div>
+                                    <div class="side-text">
+                                        {{ post.likes }}
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <ion-icon
@@ -59,14 +72,18 @@
                                         name="chatbubble-ellipses"
                                         (click)="showComments(post._id)"
                                     ></ion-icon>
-                                    <div class="side-text">{{ post.comments }}</div>
+                                    <div class="side-text">
+                                        {{ post.comments }}
+                                    </div>
                                 </div>
                                 <div class="mb-5">
                                     <ion-icon
                                         class="side-icon"
                                         name="arrow-redo"
                                     ></ion-icon>
-                                    <div class="side-text">{{ post.shares }}</div>
+                                    <div class="side-text">
+                                        {{ post.shares }}
+                                    </div>
                                 </div>
                                 <div class="">
                                     <ion-icon
@@ -76,8 +93,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </ng-template>
             </ng-container>

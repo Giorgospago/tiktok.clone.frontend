@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { IUser } from 'src/app/interfaces/IUser';
 import { UsersService } from 'src/app/services/http/users.service';
 
@@ -11,28 +11,26 @@ import { UsersService } from 'src/app/services/http/users.service';
 export class UserPage implements OnInit {
 
 	public user: IUser;
-	public segment: string = "";
+	public id: string = "";
 
 	constructor(
 		private usersService: UsersService,
-		private router: Router
+		private route: ActivatedRoute
 	) { }
 
 	ngOnInit() {
-		this.user = this.usersService.user;
-
-		this.router.events.subscribe((val) => {
-			if (val instanceof NavigationEnd) {
-				if (val.url === `/profile/${this.user._id}`) { val.url += "/"; }
-				this.segment = val.url.replace(`/profile/${this.user._id}`, "");
-			}
+		this.route.params.subscribe((params: Params) => {
+			this.id = params.id;
+			this.userProfile();
 		});
 	}
 
-	public segmentChanged(event) {
-		console.log(event);
-		const url = `/profile/${this.user._id}/${event.detail.value}`;
-		this.router.navigate([url]);
+	private userProfile() {
+		this.usersService.userProfile(this.id)
+			.subscribe(response => {
+				if (response.success) {
+					this.user = response.data;
+				}
+			});
 	}
-
 }
