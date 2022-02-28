@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "ngx-webstorage";
 import {environment} from "../../../environments/environment";
 import {IResponse} from "../../interfaces/IReponse";
-import {IPost} from "../../interfaces/IPost";
+import {IPost, IPostSearchOptions} from "../../interfaces/IPost";
 import {IComment} from "../../interfaces/IComment";
 
 @Injectable({
@@ -17,10 +17,8 @@ export class PostsService {
     ) {
     }
 
-    public search(limit: number, seen: string[] = []) {
-        return this.http.post<IResponse<IPost[]>>(environment.api + "/posts/search", {
-            limit, seen
-        });
+    public search(options: IPostSearchOptions) {
+        return this.http.post<IResponse<IPost[]>>(environment.api + "/posts/search", options);
     }
 
     public like(postId: string) {

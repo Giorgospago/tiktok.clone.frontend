@@ -1,7 +1,8 @@
 <ion-grid class="ion-no-padding">
     <ion-row class="ion-no-padding">
         <ion-col *ngFor="let post of (user.posts || [])" size="4">
-            <div class="video-ratio">
+            <div class="video-ratio"
+                 [routerLink]="['/video', post._id]">
                 <div class="content">
 
                     <video autoplay muted loop appMute>

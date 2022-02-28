@@ -8,6 +8,7 @@ import {SwiperModule} from 'swiper/angular';
 import {ImgFallbackModule} from "ngx-img-fallback";
 import {CommentsPage} from "../comments/comments.page";
 import {DeepCommentsModule} from "../../components/deep-comments/deep-comments.module";
+import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
 
 @NgModule({
     imports: [
@@ -22,6 +23,9 @@ import {DeepCommentsModule} from "../../components/deep-comments/deep-comments.m
     declarations: [
         ForyouPage,
         CommentsPage
+    ],
+    providers: [
+        SocialSharing
     ]
 })
 export class ForyouPageModule {

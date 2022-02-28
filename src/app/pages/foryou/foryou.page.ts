@@ -6,7 +6,10 @@ import { IPost } from "../../interfaces/IPost";
 import { UsersService } from "../../services/http/users.service";
 import { ModalController } from "@ionic/angular";
 import { CommentsPage } from "../comments/comments.page";
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from "rxjs";
+import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
+import {environment} from "../../../environments/environment";
 
 // install Swiper modules
 SwiperCore.use([Virtual]);
@@ -27,12 +30,16 @@ export class ForyouPage implements OnInit {
     public page: number = 0;
     public posts: IPost[] = [];
 
+    private _sub: Subscription;
+
     constructor(
         private postsService: PostsService,
         private usersService: UsersService,
         private cd: ChangeDetectorRef,
         public modalController: ModalController,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute,
+        private socialSharing: SocialSharing
     ) {
     }
 
@@ -40,13 +47,25 @@ export class ForyouPage implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.initSlides();
+        this._sub = this.route.params
+            .subscribe(async (params) => {
+                if (params.postId) {
+                    console.log("load one");
+                    this.posts = [];
+                    await this.addSlides(1, [params.postId]);
+                    this.handleVideo();
+                } else {
+                    console.log("init slides");
+                    await this.initSlides();
+                }
+            });
     }
 
     ionViewWillLeave() {
         this.posts = [];
         this.cd.detectChanges();
         this.handleVideo(-1);
+        this._sub.unsubscribe();
     }
 
     public async initSlides() {
@@ -55,17 +74,21 @@ export class ForyouPage implements OnInit {
         this.handleVideo();
     }
 
-    public addSlides(limit: number = 2) {
+    public addSlides(limit: number = 2, ids?: string[]) {
         return new Promise(resolve => {
             const seen = this.posts.map(s => s._id);
-            this.postsService.search(limit, seen)
-                .subscribe(response => {
-                    if (response.success) {
-                        this.posts.push(...response.data);
-                        this.cd.detectChanges();
-                    }
-                    resolve(true);
-                });
+            this.postsService.search({
+                limit,
+                seen,
+                ids
+            })
+            .subscribe(response => {
+                if (response.success) {
+                    this.posts.push(...response.data);
+                    this.cd.detectChanges();
+                }
+                resolve(true);
+            });
         });
     }
 
@@ -135,5 +158,15 @@ export class ForyouPage implements OnInit {
             initialBreakpoint: 1
         });
         return await modal.present();
+    }
+
+    public async share(post: IPost) {
+        const url = `${environment.host}/video/${post._id}`;
+        await this.socialSharing.share(
+            post.description,
+            `Check ${post.user.name}'s awesome video`,
+            post.videoUrl,
+            url
+        );
     }
 }

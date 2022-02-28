@@ -76,7 +76,10 @@
                                         {{ post.comments }}
                                     </div>
                                 </div>
-                                <div class="mb-5">
+                                <div
+                                    class="mb-5"
+                                    (click)="share(post)"
+                                >
                                     <ion-icon
                                         class="side-icon"
                                         name="arrow-redo"

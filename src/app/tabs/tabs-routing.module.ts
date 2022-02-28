@@ -14,6 +14,11 @@ const routes: Routes = [
                 loadChildren: () => import('../pages/foryou/foryou.module').then( m => m.ForyouPageModule)
             },
             {
+                path: 'video/:postId',
+                canActivate: [AuthGuard],
+                loadChildren: () => import('../pages/foryou/foryou.module').then( m => m.ForyouPageModule)
+            },
+            {
                 path: 'discover',
                 canActivate: [AuthGuard],
                 loadChildren: () => import('../pages/discover/discover.module').then( m => m.DiscoverPageModule)

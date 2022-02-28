@@ -26,3 +26,10 @@ export interface IUploadPost {
     tags: string[];
 }
 
+
+export interface IPostSearchOptions {
+    limit: number;
+    seen: string[];
+    ids?: string[];
+}
+

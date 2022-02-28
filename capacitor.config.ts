@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'tiktok.clone.frontend',
+  appId: 'com.trick.tok',
+  appName: 'Trick Tok',
   webDir: 'www',
   bundledWebRuntime: false
 };

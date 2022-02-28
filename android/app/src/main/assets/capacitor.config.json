@@ -1,0 +1,6 @@
+{
+	"appId": "com.trick.tok",
+	"appName": "Trick Tok",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
