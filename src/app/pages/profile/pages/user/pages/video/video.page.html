@@ -1,17 +1,13 @@
 <ion-grid class="ion-no-padding">
     <ion-row class="ion-no-padding">
-        <ion-col *ngFor="let post of (user.posts || [])" size="4">
+        <ion-col *ngFor="let post of (user?.posts || [])" size="4">
             <div class="video-ratio">
                 <div class="content">
-
                     <video appMute autoplay loop>
-                        <source [src]="post.videoUrl" type="video/mp4">
+                        <source [src]="post.videoUrl" type="video/mp4" />
                     </video>
-
                 </div>
             </div>
         </ion-col>
-
     </ion-row>
 </ion-grid>
-

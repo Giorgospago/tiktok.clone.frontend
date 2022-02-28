@@ -1,23 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-      <ion-title>{{ user.name }}</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-avatar align="center">
-      <img
-          [src]="user.photo"
-          [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"
-          alt="{{ user.name }}"
-      />
-  </ion-avatar>
+<ng-container *ngIf="user">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons>
+                <ion-back-button></ion-back-button>
+            </ion-buttons>
+            <ion-title>{{ user.name }}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-avatar align="center">
+            <img
+                [src]="user.photo"
+                [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"
+                [alt]="user.name"
+            />
+        </ion-avatar>
 
-  <ion-segment mode="md" (ionChange)="segmentChanged($event)" [value]="segment">
-      <ion-segment-button value="">
-          <ion-label>Video</ion-label>
-      </ion-segment-button>
-  </ion-segment>
+        <div class="text-center py-1">
+            <b>@{{ user.name }}</b>
+        </div>
 
-  <router-outlet></router-outlet>
+        <ion-segment mode="md" value="">
+            <ion-segment-button value="">
+                <ion-label>Video</ion-label>
+            </ion-segment-button>
+        </ion-segment>
 
-</ion-content>
+        <router-outlet></router-outlet>
+    </ion-content>
+</ng-container>

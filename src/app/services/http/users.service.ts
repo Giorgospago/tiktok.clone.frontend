@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {IResponse} from "../../interfaces/IReponse";
-import {LocalStorageService} from "ngx-webstorage";
-import {IUser} from "../../interfaces/IUser";
-import {tap} from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
+import { IResponse } from "../../interfaces/IReponse";
+import { LocalStorageService } from "ngx-webstorage";
+import { IUser } from "../../interfaces/IUser";
+import { tap } from "rxjs/operators";
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -39,13 +39,7 @@ export class UsersService {
     }
 
     public userProfile(userPostId: string) {
-        return this.http.get<IResponse<any>>(`${environment.api}/users/profile/${userPostId}`)
-            .subscribe(response => {
-                if (response.success) {
-                    this.user = response.data;
-                    this.router.navigate([`profile/${userPostId}`]);
-                }
-            });
+        return this.http.get<IResponse<IUser>>(`${environment.api}/users/profile/${userPostId}`);
     }
 
     public userFollowing(userId: string) {
