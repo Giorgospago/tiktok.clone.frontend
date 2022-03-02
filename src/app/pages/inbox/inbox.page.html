@@ -1,9 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>inbox</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>inbox</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button routerLink="create">
+                <ion-icon name="add"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
+    <ion-list>
+        <ion-list-header>My chats</ion-list-header>
+
+        <ion-item *ngFor="let chat of chats" [routerLink]="['/inbox', chat._id]">
+            <ion-avatar slot="start">
+<!--                <img-->
+<!--                    [src]="user.photo"-->
+<!--                    [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"-->
+<!--                    alt="{{ user.name }}"-->
+<!--                />-->
+            </ion-avatar>
+            <ion-label>
+                <h2>{{ chat.name }}</h2>
+                <h3>---------</h3>
+                <p>---------</p>
+            </ion-label>
+        </ion-item>
+
+    </ion-list>
 </ion-content>
