@@ -23,7 +23,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'followers',
+        path: ':id/followers',
         loadChildren: () => import('./pages/followers/followers.module').then( m => m.FollowersPageModule)
     },
     {

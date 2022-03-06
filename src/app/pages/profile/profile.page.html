@@ -17,21 +17,25 @@
     </ion-avatar>
     <h1 class="text-center">{{ user.name }}</h1>
 
-    <div class="d-flex justify-content-evenly">
-        <div class="followers d-flex flex-column text-center" [routerLink]="['/profile', user._id, 'followers']">
-            <span class="number fw-bold">
-                {{ user.followers.length }}
-            </span>
-            <span class="name">followers</span>
-        </div>
-        <div class="following d-flex flex-column text-center" [routerLink]="['/profile', user._id, 'following']">
-            <span class="number fw-bold">
-                {{ user.following.length }}
-            </span>
-            <span class="name">following</span>
-        </div>
-        <!-- <div class="liked"></div> -->
-    </div>
+<!--    <div class="d-flex justify-content-evenly">-->
+<!--        <div class="followers d-flex flex-column text-center" [routerLink]="['/profile', user._id, 'followers']">-->
+<!--            <span class="number fw-bold">-->
+<!--                {{ user.followers.length }}-->
+<!--            </span>-->
+<!--            <span class="name">followers</span>-->
+<!--        </div>-->
+<!--        <div class="following d-flex flex-column text-center" [routerLink]="['/profile', user._id, 'following']">-->
+<!--            <span class="number fw-bold">-->
+<!--                {{ user.following.length }}-->
+<!--            </span>-->
+<!--            <span class="name">following</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; <div class="liked"></div> &ndash;&gt;-->
+<!--    </div>-->
+
+    <app-follow
+        [user]="user"
+    ></app-follow>
 
     <div class="text-center">
         <ion-button color="danger" (click)="logout()">Logout</ion-button>

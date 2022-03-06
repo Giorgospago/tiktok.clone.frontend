@@ -1,22 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { UserPageRoutingModule } from './user-routing.module';
+import {UserPageRoutingModule} from './user-routing.module';
 
-import { UserPage } from './user.page';
-import { ImgFallbackModule } from 'ngx-img-fallback';
+import {UserPage} from './user.page';
+import {ImgFallbackModule} from 'ngx-img-fallback';
+import {FollowModule} from "../../../../components/follow/follow.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    UserPageRoutingModule,
-    ImgFallbackModule
-  ],
-  declarations: [UserPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        UserPageRoutingModule,
+        ImgFallbackModule,
+        FollowModule
+    ],
+    declarations: [UserPage]
 })
-export class UserPageModule {}
+export class UserPageModule {
+}

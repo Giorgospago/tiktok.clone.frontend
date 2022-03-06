@@ -36,4 +36,13 @@ export class FollowingPage implements OnInit {
             });
     }
 
+    public unfollowFollowing(userId: string) {
+        this.usersService.unfollowFollowing(userId)
+            .subscribe(response => {
+                if (response.success) {
+                    this.getUsers();
+                }
+            });
+    }
+
 }

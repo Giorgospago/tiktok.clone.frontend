@@ -20,6 +20,10 @@
             <b>@{{ user.name }}</b>
         </div>
 
+        <app-follow
+            [user]="user"
+        ></app-follow>
+
         <ion-segment mode="md" value="">
             <ion-segment-button value="">
                 <ion-label>Video</ion-label>
