@@ -5,5 +5,28 @@
 </ion-header>
 
 <ion-content>
+    <ion-list>
+
+        <ion-item *ngFor="let user of users || []; let i = index">
+            <ion-avatar slot="start" [routerLink]="['/profile', user._id]">
+                <img
+                    [src]="user.photo"
+                    [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"
+                    alt="{{ user.name }}"
+                />
+            </ion-avatar>
+            <ion-label>
+                <h2>{{ user.name }}</h2>
+                <p>{{ user.name }}</p>
+            </ion-label>
+            <ion-buttons>
+                <ion-button (click)="unfollowFollowers(user._id)" color="primary">
+                    Unfollow
+                </ion-button>
+            </ion-buttons>
+        </ion-item>
+
+    </ion-list>
+
 
 </ion-content>

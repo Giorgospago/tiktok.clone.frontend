@@ -8,6 +8,7 @@ import {ProfilePageRoutingModule} from './profile-routing.module';
 
 import {ProfilePage} from './profile.page';
 import {ImgFallbackModule} from "ngx-img-fallback";
+import {FollowModule} from "../../components/follow/follow.module";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {ImgFallbackModule} from "ngx-img-fallback";
         FormsModule,
         IonicModule,
         ProfilePageRoutingModule,
-        ImgFallbackModule
+        ImgFallbackModule,
+        FollowModule
     ],
     declarations: [ProfilePage]
 })

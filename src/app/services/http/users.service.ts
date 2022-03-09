@@ -45,4 +45,16 @@ export class UsersService {
     public userFollowing(userId: string) {
         return this.http.get<IResponse<IUser[]>>(`${environment.api}/users/profile/${userId}/following`);
     }
+
+    public userFollowers(userId: string) {
+        return this.http.get<IResponse<IUser[]>>(`${environment.api}/users/profile/${userId}/followers`);
+    }
+
+    public unfollowFollowers(userId: string) {
+        return this.http.get<IResponse<IUser>>(`${environment.api}/users/unfollow/followers/${userId}`);
+    }
+
+    public unfollowFollowing(userId: string) {
+        return this.http.get<IResponse<IUser>>(`${environment.api}/users/unfollow/following/${userId}`);
+    }
 }
