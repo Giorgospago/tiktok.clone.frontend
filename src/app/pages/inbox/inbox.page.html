@@ -19,16 +19,18 @@
 
         <ion-item *ngFor="let chat of chats" [routerLink]="['/inbox', chat._id]">
             <ion-avatar slot="start">
-<!--                <img-->
-<!--                    [src]="user.photo"-->
-<!--                    [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user.name"-->
-<!--                    alt="{{ user.name }}"-->
-<!--                />-->
+                <img
+                    [src]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + chat.name"
+                    alt="{{ chat.name }}"
+                />
             </ion-avatar>
-            <ion-label>
-                <h2>{{ chat.name }}</h2>
-                <h3>---------</h3>
-                <p>---------</p>
+            <ion-label *ngIf="chat.lastMessage">
+                <h2>{{ chat.lastMessage.message }}</h2>
+                <h3>{{ chat.name }}</h3>
+                <p>{{ chat.lastMessage.createdAt | date: 'short' }}</p>
+            </ion-label>
+            <ion-label *ngIf="!chat.lastMessage">
+                <h3>{{ chat.name }}</h3>
             </ion-label>
         </ion-item>
 

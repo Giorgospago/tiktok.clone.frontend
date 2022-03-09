@@ -8,6 +8,13 @@ export interface IChat extends IModel {
     theme?: string;
     photo?: string;
     mute?: boolean;
+    lastMessage?: IChatLastMessage;
+}
+
+export interface IChatLastMessage {
+    chat: string;
+    message: string;
+    createdAt: string | Date;
 }
 
 export interface IChatMessage extends IModel {

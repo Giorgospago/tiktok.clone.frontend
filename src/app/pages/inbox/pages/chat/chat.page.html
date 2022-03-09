@@ -4,18 +4,15 @@
     </ion-toolbar>
 </ion-header>
 <ion-content #ChatContent>
-    <div
-        *ngFor="let msg of messages"
-        [class.ion-text-end]="msg.sender === user._id"
-    >
+    <div [ngClass]="chat?.theme" style="padding-bottom: 80px">
         <div
-            class="d-inline-block py-2 px-4 rounded-3 mb-1 mx-2"
-            [class.bg-primary]="msg.sender === user._id"
-            [class.text-white]="msg.sender === user._id"
-            [class.bg-light]="msg.sender !== user._id"
-        >{{ msg.message }}</div>
+            *ngFor="let msg of messages"
+            class="message-container"
+            [class.mine]="msg.sender === user._id"
+        >
+            <div class="d-inline-block py-2 px-4 rounded-3 mb-1 mx-2 message-box">{{ msg.message }}</div>
+        </div>
     </div>
-    <div style="height: 80px"></div>
 
     <div class="p-2 bg-light border-top fixed-bottom d-flex">
         <div class="flex-grow-1">

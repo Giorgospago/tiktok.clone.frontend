@@ -1,0 +1,40 @@
+:host {
+    --chat-foreign-bg: #f0f0f0;
+    --chat-foreign-text: black;
+    --chat-mine-bg: blue;
+    --chat-mine-text: white;
+}
+
+.message-container {
+
+    .message-box {
+        background-color: var(--chat-foreign-bg);
+        color: var(--chat-foreign-text);
+    }
+
+    &.mine {
+        text-align: right;
+
+        .message-box {
+            background-color: var(--chat-mine-bg);
+            color: var(--chat-mine-text);
+        }
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :host {
+        --chat-foreign-bg: #303040;
+        --chat-foreign-text: white;
+        --chat-mine-bg: crimson;
+        --chat-mine-text: white;
+    }
+}
+
+.zartas-theme {
+    --chat-foreign-bg: magenta;
+    --chat-foreign-text: black;
+    --chat-mine-bg: black;
+    --chat-mine-text: magenta;
+}

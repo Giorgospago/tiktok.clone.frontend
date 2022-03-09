@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ChatsService} from "../../../../services/http/chats.service";
 import {IChat, IChatMessage} from "../../../../interfaces/IChat";
@@ -6,19 +6,22 @@ import {SocketsService} from "../../../../services/general/sockets.service";
 import {LocalStorage} from "ngx-webstorage";
 import {IUser} from "../../../../interfaces/IUser";
 import {IonContent} from "@ionic/angular";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
     selector: 'app-chat',
     templateUrl: './chat.page.html',
     styleUrls: ['./chat.page.scss'],
 })
-export class ChatPage implements OnInit {
+export class ChatPage implements OnInit, OnDestroy {
 
     @ViewChild("ChatContent", {static: true})
     public ChatContent: IonContent;
 
     @LocalStorage("user")
     public user: IUser;
+
+    public unsub: Subject<boolean> = new Subject<boolean>();
 
     public chatId: string;
     public chat: IChat;
@@ -43,6 +46,7 @@ export class ChatPage implements OnInit {
     }
 
     public init() {
+        this.unsub.next(true);
         this.chatsService.getChat(this.chatId)
             .subscribe(response => {
                 if (response.success) {
@@ -63,6 +67,7 @@ export class ChatPage implements OnInit {
     public initSocket() {
         this.ss.socket
             .fromEvent(`chat:receive-message:${this.chat._id}`)
+            .pipe(takeUntil(this.unsub))
             .subscribe((msg: IChatMessage) => {
                 this.messages.push(msg);
                 this.scrollToBottom();
@@ -83,4 +88,13 @@ export class ChatPage implements OnInit {
     public scrollToBottom(duration: number = 300) {
         this.ChatContent.scrollToBottom(duration);
     }
+
+    ionViewWillLeave() {
+        this.unsub.next(true);
+    }
+
+    ngOnDestroy() {
+        this.unsub.next(true);
+    }
+
 }
