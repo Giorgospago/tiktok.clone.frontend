@@ -1,10 +1,34 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>{{ chat.name }}</ion-title>
+        <ion-title>{{ chat?.name }}</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content>
-    <pre>{{ messages | json }}</pre>
+<ion-content #ChatContent>
+    <div
+        *ngFor="let msg of messages"
+        [class.ion-text-end]="msg.sender === user._id"
+    >
+        <div
+            class="d-inline-block py-2 px-4 rounded-3 mb-1 mx-2"
+            [class.bg-primary]="msg.sender === user._id"
+            [class.text-white]="msg.sender === user._id"
+            [class.bg-light]="msg.sender !== user._id"
+        >{{ msg.message }}</div>
+    </div>
+    <div style="height: 80px"></div>
 
-
+    <div class="p-2 bg-light border-top fixed-bottom d-flex">
+        <div class="flex-grow-1">
+            <textarea
+                [(ngModel)]="message.text"
+                class="form-control"
+                (keydown.enter)="sendMessage()"
+            ></textarea>
+        </div>
+        <div>
+            <ion-button (click)="sendMessage()" [disabled]="!message.text.trim()">
+                <ion-icon slot="icon-only" name="send"></ion-icon>
+            </ion-button>
+        </div>
+    </div>
 </ion-content>
