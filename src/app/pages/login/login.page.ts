@@ -5,6 +5,8 @@ import {ToastController} from '@ionic/angular';
 import {AuthService} from "../../services/http/auth.service";
 import {LocalStorageService} from "ngx-webstorage";
 import {Router} from "@angular/router";
+import {FireService} from "../../services/general/fire.service";
+import {LoginType} from "../../interfaces/auth";
 
 @Component({
     selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginPage implements OnInit {
         public loadingController: LoadingController,
         public toastController: ToastController,
         private ls: LocalStorageService,
-        private router: Router
+        private router: Router,
+        public fire: FireService
     ) {
     }
 
@@ -37,15 +40,27 @@ export class LoginPage implements OnInit {
         });
     }
 
-    public async login() {
+    public async login(type: LoginType = "basic") {
         const loading = await this.loadingController.create({
             message: 'Please wait...'
         });
         await loading.present();
         this.errors = {};
 
-        this.authService.login(this.form.value)
-            .subscribe(
+        let loginMethod;
+        switch (type) {
+            case "basic":
+                loginMethod = this.authService.login(this.form.value);
+                break;
+            case "google":
+                loginMethod = await this.fire.socialLogin("google");
+                break;
+            case "facebook":
+                loginMethod = await this.fire.socialLogin("facebook");
+                break;
+        }
+
+        loginMethod.subscribe(
                 (response) => {
                     if (response.success) {
                         this.ls.store("token", response.data.accessToken);
@@ -80,5 +95,4 @@ export class LoginPage implements OnInit {
         });
         await toast.present();
     }
-
 }

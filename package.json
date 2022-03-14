@@ -17,6 +17,7 @@
   "dependencies": {
     "@angular/common": "^13.2.3",
     "@angular/core": "^13.2.3",
+    "@angular/fire": "^7.2.1",
     "@angular/forms": "^13.2.3",
     "@angular/platform-browser": "^13.2.3",
     "@angular/platform-browser-dynamic": "^13.2.3",
@@ -40,7 +41,9 @@
     "rxjs": "^7.5.4",
     "swiper": "^8.0.6",
     "tslib": "^2.2.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "firebase": "^9.4.0",
+    "rxfire": "^6.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.2.4",

@@ -15,3 +15,5 @@ export interface IAuthLoginResult {
     accessToken: string;
     user: Partial<IUser>
 }
+
+export type LoginType = "basic" | "google" | "facebook";
