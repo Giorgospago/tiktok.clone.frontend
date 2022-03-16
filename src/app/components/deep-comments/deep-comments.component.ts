@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IComment} from "../../interfaces/IComment";
 import {CommentsService} from "../../services/http/comments.service";
+import {PostsService} from "../../services/http/posts.service";
 
 @Component({
     selector: 'app-deep-comments',
@@ -8,6 +9,9 @@ import {CommentsService} from "../../services/http/comments.service";
     styleUrls: ['./deep-comments.component.scss'],
 })
 export class DeepCommentsComponent implements OnInit {
+
+    @Input("postUserId")
+    public postUserId: string;
 
     @Input("comments")
     public comments: IComment[] = [];
@@ -19,7 +23,7 @@ export class DeepCommentsComponent implements OnInit {
     public clicked: EventEmitter<IComment> = new EventEmitter<IComment>();
 
     constructor(
-        public cs: CommentsService
+        public cs: CommentsService,
     ) {
     }
 

@@ -19,9 +19,9 @@
                 <h2>{{ user.name }}</h2>
                 <p>{{ user.name }}</p>
             </ion-label>
-            <ion-buttons>
+            <ion-buttons *ngIf="user._id === paramsId">
                 <ion-button (click)="unfollowFollowers(user._id)" color="primary">
-                    Unfollow
+                    Remove
                 </ion-button>
             </ion-buttons>
         </ion-item>

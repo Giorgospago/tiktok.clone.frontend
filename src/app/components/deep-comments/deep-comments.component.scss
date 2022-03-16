@@ -1,0 +1,29 @@
+img {
+    transform: scale(0.7);
+}
+
+#date {
+    font-size: 12px;
+}
+
+small {
+    vertical-align: top;
+}
+
+#username {
+    font-size: 0.9rem;
+
+    .creator {
+        position: relative;
+        font-weight: bold;
+        font-size: 0.7rem;
+    }
+    .creator::before {
+        content: ".";
+        position: absolute;
+        left: 6px;
+        bottom: -1px;
+        color: gray;
+        font-size: 1.2rem;
+    }
+}

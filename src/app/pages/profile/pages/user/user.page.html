@@ -5,6 +5,11 @@
                 <ion-back-button></ion-back-button>
             </ion-buttons>
             <ion-title>{{ user.name }}</ion-title>
+            <ion-buttons slot="end" *ngIf="chatId">
+                <ion-button [routerLink]="['/inbox', chatId]">
+                    <ion-icon name="navigate-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
         </ion-toolbar>
     </ion-header>
     <ion-content>

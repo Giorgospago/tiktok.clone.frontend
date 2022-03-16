@@ -10,6 +10,11 @@
         >
             <ng-container *ngFor="let post of posts">
                 <ng-template swiperSlide>
+
+                    <div #playButton class="pause" *ngIf="isPaused">
+                        <ion-icon color="light" name="play"></ion-icon>
+                    </div>
+
                     <div class="post-container absolute-fill">
                         <video #video autoplay loop volume="0">
                             <source [src]="post.videoUrl" type="video/mp4" />
@@ -70,7 +75,7 @@
                                     <ion-icon
                                         class="side-icon"
                                         name="chatbubble-ellipses"
-                                        (click)="showComments(post._id)"
+                                        (click)="showComments(post._id, post.user._id)"
                                     ></ion-icon>
                                     <div class="side-text">
                                         {{ post.comments }}

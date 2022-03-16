@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DeepCommentsComponent} from "./deep-comments.component";
 import {IonicModule} from "@ionic/angular";
+import {ImgFallbackModule} from "ngx-img-fallback";
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import {IonicModule} from "@ionic/angular";
     ],
     imports: [
         CommonModule,
-        IonicModule
+        IonicModule,
+        ImgFallbackModule
     ],
     exports: [
         DeepCommentsComponent

@@ -21,6 +21,11 @@ SwiperCore.use([Virtual]);
 })
 export class ForyouPage implements OnInit {
 
+    public isPaused: boolean = false;
+
+    @ViewChild("playButton", { static: false })
+    public playButton: ElementRef<HTMLElement>;
+
     @ViewChild("TikTokSlides", { static: false })
     public TikTokSlides: SwiperComponent;
 
@@ -93,6 +98,7 @@ export class ForyouPage implements OnInit {
     }
 
     public async slideChange(event) {
+        this.isPaused = false;
         const swipe = event[0];
         if (swipe.previousIndex < swipe.activeIndex) {
             if (swipe.activeIndex === this.posts.length - 1) {
@@ -111,6 +117,7 @@ export class ForyouPage implements OnInit {
             if (i === idx) {
                 this.videos.get(i).nativeElement.volume = 1;
                 this.videos.get(i).nativeElement.play();
+                this.isPaused = false;
             } else {
                 this.videos.get(i).nativeElement.volume = 0;
                 this.videos.get(i).nativeElement.currentTime = 0;
@@ -122,8 +129,10 @@ export class ForyouPage implements OnInit {
     public toggleVideo(video: HTMLVideoElement) {
         if (video.paused) {
             video.play();
+            this.isPaused = false;
         } else {
             video.pause();
+            this.isPaused = true;
         }
     }
 
@@ -146,12 +155,13 @@ export class ForyouPage implements OnInit {
             });
     }
 
-    public async showComments(postId: string) {
+    public async showComments(postId: string, postUserId: string) {
         const modal = await this.modalController.create({
             component: CommentsPage,
             cssClass: 'my-custom-class',
             componentProps: {
-                'postId': postId
+                'postId': postId,
+                'postUserId': postUserId
             },
             swipeToClose: true,
             breakpoints: [0, 1],
