@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IUser} from 'src/app/interfaces/IUser';
 import {UsersService} from 'src/app/services/http/users.service';
 import {ActivatedRoute} from "@angular/router";
+import {LocalStorage} from "ngx-webstorage";
 
 @Component({
     selector: 'app-following',
@@ -10,8 +11,12 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class FollowingPage implements OnInit {
 
+    @LocalStorage("user", {})
+    public user: IUser;
+
     public paramsId: string;
     public users: IUser[] = [];
+    public meId: string = "";
 
     constructor(
         private route: ActivatedRoute,
@@ -44,5 +49,4 @@ export class FollowingPage implements OnInit {
                 }
             });
     }
-
 }

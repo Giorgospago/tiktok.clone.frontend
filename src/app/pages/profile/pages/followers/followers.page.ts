@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from 'src/app/services/http/users.service';
 import {ActivatedRoute} from "@angular/router";
 import {IUser} from "../../../../interfaces/IUser";
+import {LocalStorage} from "ngx-webstorage";
 
 @Component({
     selector: 'app-followers',
@@ -10,8 +11,12 @@ import {IUser} from "../../../../interfaces/IUser";
 })
 export class FollowersPage implements OnInit {
 
+    @LocalStorage("user", {})
+    public user: IUser;
+
     public paramsId: string;
     public users: IUser[] = [];
+    public meId: string = "";
 
     constructor(
         private usersService: UsersService,

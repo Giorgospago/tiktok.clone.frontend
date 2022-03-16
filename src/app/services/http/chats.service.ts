@@ -34,4 +34,8 @@ export class ChatsService {
     public create(chat: Partial<IChat>) {
         return this.http.post<IResponse<IChat>>(environment.api + `/chats`, chat)
     }
+
+    public getChatFromUser(paramsId: string) {
+        return this.http.get<IResponse<IChat>>(`${environment.api}/chats/profile/${paramsId}`);
+    }
 }

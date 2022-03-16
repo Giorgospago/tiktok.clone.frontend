@@ -19,6 +19,9 @@ export class CommentsPage implements OnInit {
     @Input()
     public postId: string;
 
+    @Input()
+    public postUserId: string;
+
     public commentText: string = "";
     public replyComment: IComment;
 
