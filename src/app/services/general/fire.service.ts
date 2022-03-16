@@ -29,6 +29,9 @@ export class FireService {
             case "facebook":
                 provider = firebase.auth.FacebookAuthProvider;
                 break;
+            case "github":
+                provider = firebase.auth.GithubAuthProvider;
+                break;
         }
 
 
@@ -39,6 +42,6 @@ export class FireService {
     }
 
     public async logout() {
-        this.auth.signOut();
+        await this.auth.signOut();
     }
 }

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoadingController} from '@ionic/angular';
-import {ToastController} from '@ionic/angular';
 import {AuthService} from "../../services/http/auth.service";
 import {LocalStorageService} from "ngx-webstorage";
 import {Router} from "@angular/router";
 import {FireService} from "../../services/general/fire.service";
 import {LoginType} from "../../interfaces/auth";
+import {ToastService} from "../../services/general/toast.service";
 
 @Component({
     selector: 'app-login',
@@ -22,10 +22,10 @@ export class LoginPage implements OnInit {
         private fb: FormBuilder,
         private authService: AuthService,
         public loadingController: LoadingController,
-        public toastController: ToastController,
         private ls: LocalStorageService,
         private router: Router,
-        public fire: FireService
+        public fire: FireService,
+        private toast: ToastService
     ) {
     }
 
@@ -52,12 +52,16 @@ export class LoginPage implements OnInit {
             case "basic":
                 loginMethod = this.authService.login(this.form.value);
                 break;
-            case "google":
-                loginMethod = await this.fire.socialLogin("google");
-                break;
-            case "facebook":
-                loginMethod = await this.fire.socialLogin("facebook");
-                break;
+            default:
+                try {
+                    loginMethod = await this.fire.socialLogin(type);
+                } catch (e) {
+                    this.toast.toast({
+                        message: e.message,
+                        duration: 10000
+                    });
+                    loading.dismiss();
+                }
         }
 
         loginMethod.subscribe(
@@ -67,7 +71,9 @@ export class LoginPage implements OnInit {
                         this.ls.store("user", response.data.user);
                         this.router.navigate(["/"]);
                     } else {
-                        this.toast(response.message);
+                        this.toast.toast({
+                            message: response.message
+                        });
                     }
                     loading.dismiss();
                 },
@@ -81,18 +87,5 @@ export class LoginPage implements OnInit {
                     }
                 }
             );
-    }
-
-    public async toast(message: string = "") {
-        const toast = await this.toastController.create({
-            header: 'Error',
-            message: message,
-            icon: 'close-outline',
-            position: 'bottom',
-            color: "danger",
-            duration: 2000,
-            animated: true
-        });
-        await toast.present();
     }
 }

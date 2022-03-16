@@ -57,4 +57,8 @@ export class UsersService {
     public unfollowFollowing(userId: string) {
         return this.http.get<IResponse<IUser>>(`${environment.api}/users/unfollow/following/${userId}`);
     }
+
+    public addDeviceToken(token: string) {
+        return this.http.post<IResponse<any>>(environment.api + '/users/add-device-token', {token});
+    }
 }

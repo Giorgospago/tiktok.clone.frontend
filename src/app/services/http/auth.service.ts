@@ -4,14 +4,18 @@ import {IAuthLoginData, IAuthLoginResult, IAuthRegisterData} from "../../interfa
 import {environment} from "../../../environments/environment";
 import {IResponse} from "../../interfaces/IReponse";
 import {LocalStorageService} from "ngx-webstorage";
+import {FireService} from "../general/fire.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
+    public deviceToken: string = "";
+
     constructor(
         private http: HttpClient,
+        private fire: FireService,
         private ls: LocalStorageService
     ) {
     }
@@ -24,9 +28,12 @@ export class AuthService {
         return this.http.post<IResponse<IAuthLoginResult>>(`${environment.api}/auth/register`, data);
     }
 
-    public logout() {
-        this.http.get(`${environment.api}/auth/logout`).subscribe();
+    public async logout() {
+        this.http.post(`${environment.api}/auth/logout`, {
+            token: this.deviceToken
+        }).subscribe();
         this.ls.clear("token");
         this.ls.clear("user");
+        await this.fire.logout();
     }
 }
