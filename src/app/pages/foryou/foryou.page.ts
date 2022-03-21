@@ -22,6 +22,8 @@ SwiperCore.use([Virtual]);
 export class ForyouPage implements OnInit {
 
     public isPaused: boolean = false;
+    public tempPostId: string = "";
+    public startTime: Date;
 
     @ViewChild("playButton", { static: false })
     public playButton: ElementRef<HTMLElement>;
@@ -55,12 +57,10 @@ export class ForyouPage implements OnInit {
         this._sub = this.route.params
             .subscribe(async (params) => {
                 if (params.postId) {
-                    console.log("load one");
                     this.posts = [];
                     await this.addSlides(1, [params.postId]);
                     this.handleVideo();
                 } else {
-                    console.log("init slides");
                     await this.initSlides();
                 }
             });
@@ -77,6 +77,9 @@ export class ForyouPage implements OnInit {
         this.posts = [];
         await this.addSlides();
         this.handleVideo();
+
+        this.tempPostId = this.posts?.[0]?._id;
+        this.startTime = new Date();
     }
 
     public addSlides(limit: number = 2, ids?: string[]) {
@@ -110,6 +113,19 @@ export class ForyouPage implements OnInit {
             const activeVideo = (swipe.activeIndex === 0) ? 0 : 1;
             this.handleVideo(activeVideo);
         }, 10);
+
+        const actives = Array.from(document.getElementsByClassName("swiper-slide-active"));
+        const postId = actives[0].querySelector('video').getAttribute('postId');
+
+        const view = {
+            enteredAt: this.startTime,
+            leftAt: new Date(),
+            post: this.tempPostId
+        };
+        this.postsService.storeNewView(view).subscribe();
+
+        this.tempPostId = postId;
+        this.startTime = new Date();
     }
 
     public handleVideo(idx: number = 0) {

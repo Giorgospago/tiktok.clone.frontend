@@ -1,9 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>discover</ion-title>
-  </ion-toolbar>
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title>Discover tricks</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar
+            placeholder="Search anything"
+            debounce="300"
+            [animated]="true"
+            (ionChange)="search($event)"
+        ></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+    <pre>{{ posts | json }}</pre>
+    <pre>{{ users | json }}</pre>
+    <pre>{{ comments | json }}</pre>
 </ion-content>

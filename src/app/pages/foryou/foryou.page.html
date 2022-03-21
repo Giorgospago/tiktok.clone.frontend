@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="post-container absolute-fill">
-                        <video #video autoplay loop volume="0">
+                        <video #video autoplay loop volume="0" [attr.postId]="post._id">
                             <source [src]="post.videoUrl" type="video/mp4" />
                         </video>
 
