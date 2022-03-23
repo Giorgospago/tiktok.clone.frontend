@@ -115,6 +115,9 @@ export class ForyouPage implements OnInit {
         }, 10);
 
         const actives = Array.from(document.getElementsByClassName("swiper-slide-active"));
+        if (!actives.length) {
+            return;
+        }
         const postId = actives[0].querySelector('video').getAttribute('postId');
 
         const view = {

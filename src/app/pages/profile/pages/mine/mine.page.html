@@ -4,11 +4,7 @@
             <div class="video-ratio"
                  [routerLink]="['/video', post._id]">
                 <div class="content">
-
-                    <video autoplay muted loop appMute>
-                        <source [src]="post.videoUrl" type="video/mp4">
-                    </video>
-
+                    <img [src]="post.thumbnailUrl"/>
                 </div>
             </div>
         </ion-col>

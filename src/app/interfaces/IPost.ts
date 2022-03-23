@@ -8,6 +8,7 @@ export interface IPost extends IModel {
     description: string;
     videoUrl: string;
     videoVolume: number;
+    thumbnailUrl: string;
     user: string | IUser | any;
     tags: string[];
     active: boolean;

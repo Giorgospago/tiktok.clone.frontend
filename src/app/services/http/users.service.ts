@@ -6,6 +6,7 @@ import { LocalStorageService } from "ngx-webstorage";
 import { IUser } from "../../interfaces/IUser";
 import { tap } from "rxjs/operators";
 import { Router } from '@angular/router';
+import {IPost} from "../../interfaces/IPost";
 
 @Injectable({
     providedIn: 'root'
@@ -36,6 +37,10 @@ export class UsersService {
 
     public follow(userId: string) {
         return this.http.get<IResponse<any>>(environment.api + '/users/follow/' + userId);
+    }
+
+    public favorites() {
+        return this.http.get<IResponse<IPost[]>>(environment.api + '/users/favorites');
     }
 
     public userProfile(userPostId: string) {

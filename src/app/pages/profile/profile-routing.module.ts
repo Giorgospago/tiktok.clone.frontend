@@ -5,10 +5,6 @@ import {ProfilePage} from './profile.page';
 
 const routes: Routes = [
     {
-        path: ':id',
-        loadChildren: () => import('./pages/user/user.module').then( m => m.UserPageModule),
-    },
-    {
         path: '',
         component: ProfilePage,
         children: [
@@ -21,6 +17,10 @@ const routes: Routes = [
                 loadChildren: () => import('./pages/favorites/favorites.module').then(m => m.FavoritesPageModule)
             }
         ]
+    },
+    {
+        path: ':id',
+        loadChildren: () => import('./pages/user/user.module').then( m => m.UserPageModule),
     },
     {
         path: ':id/followers',

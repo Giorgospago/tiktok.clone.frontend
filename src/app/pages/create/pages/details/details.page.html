@@ -12,7 +12,7 @@
             <div class="progress absolute-fill">
                 {{ createService.percentage }}%
             </div>
-            <video autoplay muted loop>
+            <video muted #VideoEl (timeupdate)="onTimeUpdate($event)">
                 <source [src]="path" type="video/mp4">
             </video>
         </div>
