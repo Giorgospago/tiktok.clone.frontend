@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class GumletPipe implements PipeTransform {
 
     transform(value: string, ...args: string[]): string {
-        return value.replace(
+        return (value || "").replace(
             'https://trick-tok.s3.eu-west-2.amazonaws.com',
             'https://tricktok.gumlet.io'
         ) + (args?.[0] || "");
