@@ -1,0 +1,12 @@
+<ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
+        <ion-col *ngFor="let post of posts; trackBy: itemTrackBy" size="4">
+            <div class="video-ratio"
+                 [routerLink]="['/video', post._id]">
+                <div class="content">
+                    <img class="w-100" [src]="post.thumbnailUrl | gumlet: '?w=300'"/>
+                </div>
+            </div>
+        </ion-col>
+    </ion-row>
+</ion-grid>

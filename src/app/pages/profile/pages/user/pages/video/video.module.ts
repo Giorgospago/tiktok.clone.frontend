@@ -8,6 +8,7 @@ import { VideoPageRoutingModule } from './video-routing.module';
 
 import { VideoPage } from './video.page';
 import {MuteVideoModule} from "../../../../../../directives/mute-video/mute-video.module";
+import {VideoWallModule} from "../../../../../../components/video-wall/video-wall.module";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {MuteVideoModule} from "../../../../../../directives/mute-video/mute-vide
         FormsModule,
         IonicModule,
         VideoPageRoutingModule,
-        MuteVideoModule
+        MuteVideoModule,
+        VideoWallModule
     ],
   declarations: [VideoPage]
 })

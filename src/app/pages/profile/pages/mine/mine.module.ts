@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 import {MinePageRoutingModule} from './mine-routing.module';
 import {MinePage} from './mine.page';
-import {MuteVideoModule} from "../../../../directives/mute-video/mute-video.module";
+import {VideoWallModule} from "../../../../components/video-wall/video-wall.module";
 
 @NgModule({
     imports: [
@@ -12,7 +12,7 @@ import {MuteVideoModule} from "../../../../directives/mute-video/mute-video.modu
         FormsModule,
         IonicModule,
         MinePageRoutingModule,
-        MuteVideoModule
+        VideoWallModule
     ],
     declarations: [MinePage]
 })

@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {LocalStorage} from "ngx-webstorage";
-import { UsersService } from 'src/app/services/http/users.service';
 import {IUser} from "../../../../interfaces/IUser";
 
 @Component({
@@ -15,7 +13,6 @@ export class MinePage implements OnInit {
     public user: IUser;
 
     constructor(
-        private usersService: UsersService
     ) {
     }
 
