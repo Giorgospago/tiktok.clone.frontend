@@ -4,6 +4,7 @@ import {PostsService} from "../../services/http/posts.service";
 import {IPost} from "../../interfaces/IPost";
 import {IUser} from "../../interfaces/IUser";
 import {IComment} from "../../interfaces/IComment";
+import {SwiperOptions} from 'swiper';
 
 @Component({
     selector: 'app-discover',
@@ -17,6 +18,10 @@ export class DiscoverPage implements OnInit {
     public comments: IComment[] = [];
 
     public searchValue$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+
+    public config: SwiperOptions = {
+        slidesPerView: 3,
+    };
 
     constructor(
         private postsService: PostsService
