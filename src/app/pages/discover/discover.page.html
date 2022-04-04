@@ -12,7 +12,44 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <pre>{{ posts | json }}</pre>
-    <pre>{{ users | json }}</pre>
-    <pre>{{ comments | json }}</pre>
+
+    <swiper class="mySwiper">
+        <ng-template swiperSlide>
+            <app-video-wall [posts]="posts"></app-video-wall>
+        </ng-template>
+    </swiper>
+
+    <div class="d-flex">
+        <div class="pe-2" *ngFor="let user of (users || [])">
+            <ion-avatar slot="start" [routerLink]="['/profile', user._id]">
+                <img
+                    [src]="user?.photo"
+                    [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user?.name"
+                    alt="{{ user?.name }}"
+                />
+            </ion-avatar>
+            <p class="text-center">
+                {{ user.name }}
+            </p>
+        </div>
+    </div>
+
+    <swiper class="mySwiper" [config]="config">
+        <ng-template swiperSlide *ngFor="let comment of (comments || [])">
+                <ion-grid class="ion-no-padding">
+                    <ion-row class="ion-no-padding">
+                        <ion-col size="12">
+                            <div class="video-ratio">
+                                <div class="content">
+                                    <video appMute autoplay loop>
+                                        <source [src]="comment.post.videoUrl" type="video/mp4" />
+                                    </video>
+                                </div>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+        </ng-template>
+    </swiper>
+
 </ion-content>
