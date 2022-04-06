@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostListener,
+    OnInit,
+    QueryList,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
 import SwiperCore, { Virtual } from 'swiper';
 import { SwiperComponent } from "swiper/angular";
 import { PostsService } from "../../services/http/posts.service";
@@ -9,7 +18,7 @@ import { CommentsPage } from "../comments/comments.page";
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from "rxjs";
 // import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
-import {environment} from "../../../environments/environment";
+// import {environment} from "../../../environments/environment";
 import {SharePage} from "../share/share.page";
 
 // install Swiper modules
@@ -25,6 +34,21 @@ export class ForyouPage implements OnInit {
     public isPaused: boolean = false;
     public tempPostId: string = "";
     public startTime: Date;
+    public isHere = false;
+
+    @HostListener("document:keydown", ["$event"])
+    public onKeyDown(event) {
+        if (!this.isHere) return;
+
+        switch (event.key) {
+            case "ArrowUp":
+                this.TikTokSlides.swiperRef.slidePrev();
+                break;
+            case "ArrowDown":
+                this.TikTokSlides.swiperRef.slideNext();
+                break;
+        }
+    }
 
     @ViewChild("playButton", { static: false })
     public playButton: ElementRef<HTMLElement>;
@@ -55,6 +79,7 @@ export class ForyouPage implements OnInit {
     }
 
     ionViewWillEnter() {
+        this.isHere = true;
         this._sub = this.route.params
             .subscribe(async (params) => {
                 if (params.postId) {
@@ -68,6 +93,7 @@ export class ForyouPage implements OnInit {
     }
 
     ionViewWillLeave() {
+        this.isHere = false;
         this.posts = [];
         this.cd.detectChanges();
         this.handleVideo(-1);

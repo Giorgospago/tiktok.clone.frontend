@@ -11,11 +11,26 @@
             [class.mine]="msg.sender === user._id"
         >
             <ng-container *ngIf="msg.media.length">
-                <div *ngFor="let media of msg.media">
+                <ng-container *ngFor="let media of msg.media">
 
-                    <video class="me-2 rounded-3 video-preview" [src]="media.url" controls></video>
+                    <ng-container [ngSwitch]="media.type">
+                        <ng-container *ngSwitchCase="'video'">
+                            <div class="mx-2">
+                                <video class="rounded-3" width="171" height="304" [src]="media.url" loop controls></video>
+                            </div>
+                        </ng-container>
+                        <div *ngSwitchCase="'audio'">
+                            audio
+                        </div>
+                        <div *ngSwitchCase="'photo'">
+                            photo
+                        </div>
+                        <div *ngSwitchCase="'link'">
+                            link
+                        </div>
+                    </ng-container>
 
-                </div>
+                </ng-container>
             </ng-container>
             <div class="d-inline-block py-2 px-4 rounded-3 mb-1 mx-2 message-box">{{ msg.message }}</div>
         </div>

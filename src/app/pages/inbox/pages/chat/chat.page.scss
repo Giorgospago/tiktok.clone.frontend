@@ -21,12 +21,15 @@
         }
     }
 
-    .video-preview {
-        max-width: 60%;
-        max-height: 400px;
-    }
 }
 
+.video-preview {
+    max-width: 60%;
+    max-height: 400px;
+}
+.vertical-video-ratio {
+    padding-bottom: 177.777%;
+}
 
 @media (prefers-color-scheme: dark) {
     :host {
