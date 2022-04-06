@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "ngx-webstorage";
 import {environment} from "../../../environments/environment";
 import {IResponse} from "../../interfaces/IReponse";
-import {IPost, IPostSearchOptions, IPostTextSearchOptions, IPostTextSearchResult} from "../../interfaces/IPost";
+import {IPost, IPostSearchOptions, IPostTextSearchOptions, IPostTextSearchResult, IShareData} from "../../interfaces/IPost";
 import {IComment} from "../../interfaces/IComment";
 
 @Injectable({
@@ -39,6 +39,10 @@ export class PostsService {
             text: text,
             comment: commentId
         });
+    }
+
+    public share(data: IShareData) {
+        return this.http.post<IResponse<any>>(environment.api + `/posts/share`, data);
     }
 
     public storeNewView(view: any) {

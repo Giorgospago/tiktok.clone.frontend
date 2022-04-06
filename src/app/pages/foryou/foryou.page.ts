@@ -8,8 +8,9 @@ import { ModalController } from "@ionic/angular";
 import { CommentsPage } from "../comments/comments.page";
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from "rxjs";
-import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
+// import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
 import {environment} from "../../../environments/environment";
+import {SharePage} from "../share/share.page";
 
 // install Swiper modules
 SwiperCore.use([Virtual]);
@@ -46,7 +47,7 @@ export class ForyouPage implements OnInit {
         public modalController: ModalController,
         private router: Router,
         private route: ActivatedRoute,
-        private socialSharing: SocialSharing
+        // private socialSharing: SocialSharing
     ) {
     }
 
@@ -190,12 +191,24 @@ export class ForyouPage implements OnInit {
     }
 
     public async share(post: IPost) {
-        const url = `${environment.host}/video/${post._id}`;
-        await this.socialSharing.share(
-            post.description,
-            `Check ${post.user.name}'s awesome video`,
-            post.videoUrl,
-            url
-        );
+        // const url = `${environment.host}/video/${post._id}`;
+        // await this.socialSharing.share(
+        //     post.description,
+        //     `Check ${post.user.name}'s awesome video`,
+        //     post.videoUrl,
+        //     url
+        // );
+
+        const modal = await this.modalController.create({
+            component: SharePage,
+            cssClass: 'my-custom-class',
+            componentProps: {
+                'postId': post._id
+            },
+            swipeToClose: true,
+            breakpoints: [0, 0.5],
+            initialBreakpoint: 0.5
+        });
+        return await modal.present();
     }
 }

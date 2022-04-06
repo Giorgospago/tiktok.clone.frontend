@@ -9,6 +9,7 @@ import {ImgFallbackModule} from "ngx-img-fallback";
 import {CommentsPage} from "../comments/comments.page";
 import {DeepCommentsModule} from "../../components/deep-comments/deep-comments.module";
 import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
+import {SharePage} from "../share/share.page";
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
     ],
     declarations: [
         ForyouPage,
-        CommentsPage
+        CommentsPage,
+        SharePage
     ],
     providers: [
         SocialSharing

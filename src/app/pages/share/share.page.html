@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>share</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="d-flex">
+        <div
+            class="p-2"
+            *ngFor="let user of (users || [])"
+            (click)="selected[user._id] = !selected[user._id]"
+            [class.selected]="selected[user._id]"
+        >
+            <ion-avatar slot="start">
+                <img
+                    [src]="user?.photo"
+                    [src-fallback]="'https://eu.ui-avatars.com/api/?background=random&color=fff&name=' + user?.name"
+                    alt="{{ user?.name }}"
+                />
+            </ion-avatar>
+        </div>
+    </div>
+
+    <div class="mt-3 px-2">
+        <textarea [(ngModel)]="message" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="mt-3">
+        <ion-button (click)="share()" [disabled]="!selectedPeople.length" expand="block" color="tertiary">
+            Send
+        </ion-button>
+    </div>
+
+</ion-content>

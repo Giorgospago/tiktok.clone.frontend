@@ -20,6 +20,11 @@
             color: var(--chat-mine-text);
         }
     }
+
+    .video-preview {
+        max-width: 60%;
+        max-height: 400px;
+    }
 }
 
 

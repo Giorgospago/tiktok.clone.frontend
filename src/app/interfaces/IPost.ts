@@ -45,3 +45,9 @@ export interface IPostTextSearchResult {
     comments: IComment[];
 }
 
+export interface IShareData {
+    receiver: string;
+    post: string;
+    message: string;
+}
+
