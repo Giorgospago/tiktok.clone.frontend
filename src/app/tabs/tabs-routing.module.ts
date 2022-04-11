@@ -19,6 +19,11 @@ const routes: Routes = [
                 loadChildren: () => import('../pages/foryou/foryou.module').then( m => m.ForyouPageModule)
             },
             {
+                path: 'audio/:audioId',
+                canActivate: [AuthGuard],
+                loadChildren: () => import('../pages/audio/audio.module').then( m => m.AudioPageModule)
+            },
+            {
                 path: 'discover',
                 canActivate: [AuthGuard],
                 loadChildren: () => import('../pages/discover/discover.module').then( m => m.DiscoverPageModule)

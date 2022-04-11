@@ -1,12 +1,14 @@
 import {IModel} from "./IModel";
 import {IUser} from "./IUser";
 import {IComment} from "./IComment";
+import {IAudio} from "./IAudio";
 
 export type PostScope = "public" | "friends" | "private";
 
 export interface IPost extends IModel {
     description: string;
     videoUrl: string;
+    audio: string | IAudio | any;
     videoVolume: number;
     thumbnailUrl: string;
     user: string | IUser | any;

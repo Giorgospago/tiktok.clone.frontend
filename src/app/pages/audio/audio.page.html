@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{ audio?.name || "Audio file" }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-container *ngIf="audio">
+        <div class="d-flex" *ngIf="audio">
+            <div>
+                <ng-container *ngIf="audio.meta?.spotify?.album?.images?.[0]?.url else noImageAvailable">
+                    <img
+                        [src]="audio.meta.spotify.album.images[0].url"
+                        class="img-thumbnail"
+                        width="180"
+                    />
+                </ng-container>
+                <ng-template #noImageAvailable>
+                    no image available
+                </ng-template>
+            </div>
+            <div class="flex-grow-1 d-flex flex-column">
+                <div>{{ audio.name }}</div>
+            </div>
+        </div>
+        <div *ngIf="youtube">
+            <div class="ratio ratio-16x9">
+                <iframe [src]="('https://www.youtube.com/embed/' + youtube + '?rel=0') | safe: 'resourceUrl'" allowfullscreen></iframe>
+            </div>
+        </div>
+    </ng-container>
+    Audio: <pre>{{ audio | json }}</pre>
+</ion-content>
