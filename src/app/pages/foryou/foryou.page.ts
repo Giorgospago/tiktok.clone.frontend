@@ -140,7 +140,9 @@ export class ForyouPage implements OnInit {
             }
         }
 
-        const actives = Array.from(document.getElementsByClassName("swiper-slide-active"));
+        await new Promise(resolve => setTimeout(resolve, 10));
+
+        const actives = Array.from(document.querySelectorAll(".swiper-slide-active"));
         if (!actives.length) {
             return;
         }

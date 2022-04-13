@@ -32,6 +32,7 @@
                                         class="fw-bold"
                                         [routerLink]="['/profile', post.user._id]"
                                     >
+                                        {{ post._id }}<br/>
                                         @{{ post.user?.name }}
                                     </div>
                                     <div>{{ post.description }}</div>
