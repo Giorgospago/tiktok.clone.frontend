@@ -1,6 +1,9 @@
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CreateService} from "../../services/http/create.service";
 import * as RecordRTC from "recordrtc/RecordRTC";
+import {ActivatedRoute} from "@angular/router";
+import {IAudio} from "../../interfaces/IAudio";
+import {AudioService} from "../../services/http/audio.service";
 
 @Component({
     selector: 'app-create',
@@ -12,8 +15,14 @@ export class CreatePage implements OnInit {
     @ViewChild("videoPreview", {static: true})
     public videoPreview: ElementRef<HTMLVideoElement>;
 
+    @ViewChild("AudioRef", {static: false})
+    public AudioRef: ElementRef<HTMLAudioElement>;
+
     public cameraPlace: boolean = true;
     public startTime: number = null;
+
+    public audioId: string = "";
+    public audio: IAudio;
 
     public recorder: RecordRTC;
     public recordOptions = {
@@ -113,12 +122,29 @@ export class CreatePage implements OnInit {
 
     constructor(
         public createService: CreateService,
-        private cd: ChangeDetectorRef
+        public audioService: AudioService,
+        private cd: ChangeDetectorRef,
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            if (params.audio) {
+                this.audioId = params.audio;
+                this.initAudio();
+            }
+        });
         this.initCamera();
+    }
+
+    public initAudio() {
+        this.audioService.getAudio(this.audioId)
+            .subscribe(response => {
+                if (response.success) {
+                    this.audio = response.data;
+                }
+            });
     }
 
     public initCamera() {
@@ -146,14 +172,19 @@ export class CreatePage implements OnInit {
         this.recorder.startRecording();
         this.createService.videoInput.file = null;
         this.createService.videoInput.path = "";
+        this.audioPlay();
     }
 
     public stopRecord() {
         this.startTime = null;
+        this.audioStop();
         this.recorder.stopRecording(() => {
             let blob = this.recorder.getBlob();
             const file = new File([blob], "video");
 
+            if (this.audio) {
+                this.createService.videoInput.audio = this.audio;
+            }
             this.createService.videoInput.file = file;
             this.createService.videoInput.path = URL.createObjectURL(file);
             this.cd.detectChanges();
@@ -166,9 +197,25 @@ export class CreatePage implements OnInit {
     }
 
     public selectFile(event) {
+        if (this.audio) {
+            this.createService.videoInput.audio = this.audio;
+        }
         const file = event.target.files[0];
         this.createService.videoInput.file = file;
         this.createService.videoInput.path = URL.createObjectURL(file);
         this.cd.detectChanges();
+    }
+
+    public audioPlay() {
+        if (this.audio && this.AudioRef?.nativeElement) {
+            this.AudioRef.nativeElement.play();
+        }
+    }
+
+    public audioStop() {
+        if (this.audio && this.AudioRef?.nativeElement) {
+            this.AudioRef.nativeElement.pause();
+            this.AudioRef.nativeElement.currentTime = 0;
+        }
     }
 }

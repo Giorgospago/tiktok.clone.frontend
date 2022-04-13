@@ -75,6 +75,8 @@ export class AudioPage implements OnInit {
 
         if (this.audio?.meta?.apple_music?.previews?.length) {
             this.audioPreview = this.audio.meta.apple_music.previews[0].url;
+        } else {
+            this.audioPreview = this.audio.url;
         }
 
         if (this.audio?.meta?.lyrics?.lyrics) {

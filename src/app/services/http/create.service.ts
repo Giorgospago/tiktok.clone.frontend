@@ -14,6 +14,7 @@ export class CreateService {
 
     public percentage = 0;
     public videoInput = {
+        audio: null,
         file: null,
         path: "",
         live: ""
@@ -34,6 +35,7 @@ export class CreateService {
 
     public resetVideoInput() {
         this.videoInput = {
+            audio: null,
             file: null,
             path: "",
             live: ""

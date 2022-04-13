@@ -56,8 +56,12 @@ export class ForyouPage implements OnInit {
     @ViewChild("TikTokSlides", { static: false })
     public TikTokSlides: SwiperComponent;
 
+    @ViewChild("PostAudioRef", { static: true })
+    public PostAudioRef: ElementRef<HTMLAudioElement>;
+
     @ViewChildren("video")
     public videos: QueryList<ElementRef<HTMLVideoElement>>;
+
 
     public page: number = 0;
     public posts: IPost[] = [];
@@ -85,7 +89,7 @@ export class ForyouPage implements OnInit {
                 if (params.postId) {
                     this.posts = [];
                     await this.addSlides(1, [params.postId]);
-                    this.handleVideo();
+                    this.handleVideo(0, params.postId);
                 } else {
                     await this.initSlides();
                 }
@@ -103,10 +107,10 @@ export class ForyouPage implements OnInit {
     public async initSlides() {
         this.posts = [];
         await this.addSlides();
-        this.handleVideo();
-
         this.tempPostId = this.posts?.[0]?._id;
         this.startTime = new Date();
+
+        this.handleVideo(0, this.tempPostId);
     }
 
     public addSlides(limit: number = 2, ids?: string[]) {
@@ -136,11 +140,6 @@ export class ForyouPage implements OnInit {
             }
         }
 
-        setTimeout(() => {
-            const activeVideo = (swipe.activeIndex === 0) ? 0 : 1;
-            this.handleVideo(activeVideo);
-        }, 10);
-
         const actives = Array.from(document.getElementsByClassName("swiper-slide-active"));
         if (!actives.length) {
             return;
@@ -156,12 +155,29 @@ export class ForyouPage implements OnInit {
 
         this.tempPostId = postId;
         this.startTime = new Date();
+
+        setTimeout(() => {
+            const activeVideo = (swipe.activeIndex === 0) ? 0 : 1;
+            this.handleVideo(activeVideo, postId);
+        }, 10);
     }
 
-    public handleVideo(idx: number = 0) {
+    public handleVideo(idx: number = 0, postId?: string) {
+        this.audioStop();
+
         for (let i = 0; i < this.videos.length; i++) {
             if (i === idx) {
-                this.videos.get(i).nativeElement.volume = 1;
+                let videoVolume = 1;
+                const post = this.posts.find(p => p._id === postId);
+                if (post && post.audio) {
+                    videoVolume = post.videoVolume;
+                    if (videoVolume === 0) {
+                        this.PostAudioRef.nativeElement.src = post.audio.url;
+                        this.PostAudioRef.nativeElement.play();
+                    }
+                }
+
+                this.videos.get(i).nativeElement.volume = videoVolume;
                 this.videos.get(i).nativeElement.play();
                 this.isPaused = false;
             } else {
@@ -172,12 +188,19 @@ export class ForyouPage implements OnInit {
         }
     }
 
+    public audioStop() {
+        this.PostAudioRef.nativeElement.pause();
+        this.PostAudioRef.nativeElement.currentTime = 0;
+    }
+
     public toggleVideo(video: HTMLVideoElement) {
         if (video.paused) {
             video.play();
+            this.PostAudioRef.nativeElement.play();
             this.isPaused = false;
         } else {
             video.pause();
+            this.PostAudioRef.nativeElement.pause();
             this.isPaused = true;
         }
     }

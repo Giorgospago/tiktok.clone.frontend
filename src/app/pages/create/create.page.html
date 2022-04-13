@@ -4,6 +4,25 @@
         {{ startTime | timeago }}
     </div>
 
+    <ng-container *ngIf="audio">
+        <audio hidden [src]="audio.url" #AudioRef></audio>
+        <div class="audio-template d-flex align-items-center">
+            <ng-container *ngIf="audio.meta?.spotify?.album?.images?.[0]?.url">
+                <img
+                    [src]="audio.meta.spotify.album.images[0].url"
+                    class="rounded-circle"
+                    width="30"
+                />
+            </ng-container>
+            <span class="mx-1 text-nowrap overflow-hidden" style="max-width: 120px;text-overflow: ellipsis;">{{ audio.name }}</span>
+            <ion-buttons hidden>
+                <ion-button>
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </div>
+    </ng-container>
+
     <div class="video-container">
         <video autoplay appMute #videoPreview></video>
     </div>

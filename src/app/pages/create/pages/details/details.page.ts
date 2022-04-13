@@ -87,6 +87,10 @@ export class DetailsPage implements OnInit {
             videoUrl: this.createService.videoInput.live,
             thumbnailUrl: this.thumbnailUrl
         };
+        if (this.createService.videoInput.audio) {
+            data.audio = this.createService.videoInput.audio._id;
+            data.videoVolume = 0;
+        }
         this.createService.uploadPost(data);
     }
 }

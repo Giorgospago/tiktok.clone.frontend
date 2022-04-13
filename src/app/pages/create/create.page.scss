@@ -46,3 +46,18 @@ ion-content {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.audio-template {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+    background-color: crimson;
+    border-radius: 30px;
+    padding: 5px;
+    color: #fff;
+    z-index: 10;
+    font-weight: bold;
+    font-size: 11px;
+}
