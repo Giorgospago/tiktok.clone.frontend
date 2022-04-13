@@ -33,8 +33,9 @@ export interface IUploadPost {
 
 export interface IPostSearchOptions {
     limit: number;
-    seen: string[];
+    seen?: string[];
     ids?: string[];
+    audios?: string[];
 }
 
 export interface IPostTextSearchOptions {

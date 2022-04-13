@@ -31,6 +31,17 @@
 /* Bootstrap 5 */
 @import '~bootstrap/scss/bootstrap';
 
+:root {
+    --color-spotify: #1ed760;
+    --color-apple: black;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-spotify: #1ed760;
+        --color-apple: white;
+    }
+}
+
 
 .absolute-fill {
     position: absolute;
@@ -58,6 +69,13 @@
 .fs-8 { font-size: 0.8rem; }
 .fs-9 { font-size: 0.7rem; }
 .fs-10 { font-size: 0.6rem; }
+
+.text-break-spaces {
+    white-space: break-spaces;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
 
 //@for $i from 7 through 10 {
 //    .fs-#{$i} {

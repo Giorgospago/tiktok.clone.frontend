@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AudioService} from "../../services/http/audio.service";
 import {IAudio} from "../../interfaces/IAudio";
+import {IPost} from "../../interfaces/IPost";
+import {PostsService} from "../../services/http/posts.service";
 
 @Component({
     selector: 'app-audio',
@@ -13,11 +15,24 @@ export class AudioPage implements OnInit {
     public audioId: string = "";
     public audio: IAudio = null;
     public youtube: string = "";
+    public audioPreview: string = "";
+    public lyrics: string = "";
+    public toggleLyrics: boolean = false;
+    public badges: string[] = [];
+
+    public links = {
+        apple: "",
+        spotify: "",
+        all: ""
+    };
+
+    public posts: IPost[] = [];
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private audioService: AudioService
+        private audioService: AudioService,
+        private postsService: PostsService
     ) {
     }
 
@@ -33,12 +48,18 @@ export class AudioPage implements OnInit {
             .subscribe(response => {
                 if (response.success) {
                     this.audio = response.data;
-                    this.findYoutubeVideo();
+                    this.parseMetaData();
                 }
-            })
+            });
+
+        this.postsService.search({audios: [this.audioId], limit: 9}).subscribe(response => {
+            if (response.success) {
+                this.posts = response.data;
+            }
+        });
     }
 
-    public findYoutubeVideo() {
+    public parseMetaData() {
         if (this.audio?.meta?.lyrics?.media) {
             const media = JSON.parse(this.audio.meta.lyrics.media);
             if (Array.isArray(media)) {
@@ -50,6 +71,30 @@ export class AudioPage implements OnInit {
                     }
                 }
             }
+        }
+
+        if (this.audio?.meta?.apple_music?.previews?.length) {
+            this.audioPreview = this.audio.meta.apple_music.previews[0].url;
+        }
+
+        if (this.audio?.meta?.lyrics?.lyrics) {
+            this.lyrics = this.audio.meta.lyrics.lyrics;
+        }
+
+        if (this.audio?.meta?.apple_music?.genreNames) {
+            this.badges = this.audio.meta.apple_music.genreNames;
+        }
+
+        if (this.audio?.meta?.apple_music?.url) {
+            this.links.apple = this.audio.meta.apple_music.url;
+        }
+
+        if (this.audio?.meta?.spotify?.external_urls?.spotify) {
+            this.links.spotify = this.audio.meta.spotify.external_urls.spotify;
+        }
+
+        if (this.audio?.meta?.song_link) {
+            this.links.all = this.audio.meta.song_link;
         }
     }
 
