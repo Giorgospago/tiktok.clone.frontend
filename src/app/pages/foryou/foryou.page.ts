@@ -142,21 +142,23 @@ export class ForyouPage implements OnInit {
 
         await new Promise(resolve => setTimeout(resolve, 10));
 
+        let postId = null;
         const actives = Array.from(document.querySelectorAll(".swiper-slide-active"));
-        if (!actives.length) {
-            return;
+        if (actives.length) {
+            const activeVideo = actives[0].querySelector('video');
+            if (activeVideo) {
+                const postId = activeVideo.getAttribute('postId');
+                const view = {
+                    enteredAt: this.startTime,
+                    leftAt: new Date(),
+                    post: this.tempPostId
+                };
+                this.postsService.storeNewView(view).subscribe();
+
+                this.tempPostId = postId;
+                this.startTime = new Date();
+            }
         }
-        const postId = actives[0].querySelector('video').getAttribute('postId');
-
-        const view = {
-            enteredAt: this.startTime,
-            leftAt: new Date(),
-            post: this.tempPostId
-        };
-        this.postsService.storeNewView(view).subscribe();
-
-        this.tempPostId = postId;
-        this.startTime = new Date();
 
         setTimeout(() => {
             const activeVideo = (swipe.activeIndex === 0) ? 0 : 1;
@@ -170,12 +172,14 @@ export class ForyouPage implements OnInit {
         for (let i = 0; i < this.videos.length; i++) {
             if (i === idx) {
                 let videoVolume = 1;
-                const post = this.posts.find(p => p._id === postId);
-                if (post && post.audio) {
-                    videoVolume = post.videoVolume;
-                    if (videoVolume === 0) {
-                        this.PostAudioRef.nativeElement.src = post.audio.url;
-                        this.PostAudioRef.nativeElement.play();
+                if (postId) {
+                    const post = this.posts.find(p => p._id === postId);
+                    if (post && post.audio) {
+                        videoVolume = post.videoVolume;
+                        if (videoVolume === 0) {
+                            this.PostAudioRef.nativeElement.src = post.audio.url;
+                            this.PostAudioRef.nativeElement.play();
+                        }
                     }
                 }
 
