@@ -8,6 +8,7 @@ export const environment = {
         messagingSenderId: '24231743892',
     },
     production: true,
-    api: "https://trick-tok.herokuapp.com",
+    // api: "https://trick-tok.herokuapp.com",
+    api: "https://api.tricktok.develobird.gr",
     host: "https://trick-tok.netlify.app"
 };
