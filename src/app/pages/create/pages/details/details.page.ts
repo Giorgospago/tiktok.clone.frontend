@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {UploadService} from "../../../../services/http/upload.service";
 import {HttpResponse} from "@angular/common/http";
 import {IResponse} from "../../../../interfaces/IReponse";
+import {LoadingController} from "@ionic/angular";
 
 @Component({
     selector: 'app-details',
@@ -22,7 +23,8 @@ export class DetailsPage implements OnInit {
         public createService: CreateService,
         private domSanitizer: DomSanitizer,
         private fb: FormBuilder,
-        private uploadService: UploadService
+        private uploadService: UploadService,
+        public loadingController: LoadingController
     ) {
     }
 
@@ -81,7 +83,13 @@ export class DetailsPage implements OnInit {
             });
     }
 
-    public uploadPost() {
+    public async uploadPost() {
+        const loading = await this.loadingController.create({
+            cssClass: 'my-custom-class',
+            message: 'Uploading...'
+        });
+        await loading.present();
+
         const data = {
             ...this.form.value,
             videoUrl: this.createService.videoInput.live,
@@ -91,6 +99,7 @@ export class DetailsPage implements OnInit {
             data.audio = this.createService.videoInput.audio._id;
             data.videoVolume = 0;
         }
-        this.createService.uploadPost(data);
+        await this.createService.uploadPost(data);
+        await loading.dismiss();
     }
 }

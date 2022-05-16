@@ -20,6 +20,8 @@ import {Subscription} from "rxjs";
 // import {SocialSharing} from '@awesome-cordova-plugins/social-sharing/ngx';
 // import {environment} from "../../../environments/environment";
 import {SharePage} from "../share/share.page";
+import {LocalStorage} from "ngx-webstorage";
+import {IUser} from "../../interfaces/IUser";
 
 // install Swiper modules
 SwiperCore.use([Virtual]);
@@ -62,6 +64,8 @@ export class ForyouPage implements OnInit {
     @ViewChildren("video")
     public videos: QueryList<ElementRef<HTMLVideoElement>>;
 
+    @LocalStorage("user", {})
+    public user: IUser;
 
     public page: number = 0;
     public posts: IPost[] = [];
@@ -266,4 +270,37 @@ export class ForyouPage implements OnInit {
         });
         return await modal.present();
     }
+
+    public videoPlaying(event, post: IPost) {
+        if (!post.nudity?.length) {
+            return;
+        }
+
+        if (this.user?.tags?.includes("no-blur")) {
+            return;
+        }
+
+        const ct = event.target.currentTime;
+        const el = document.getElementById("filter-" + post._id);
+        let blur = 0;
+
+        for (let i = 0; i < post.nudity.length; i++) {
+            if (ct < post.nudity[i]?.timestamp && post.nudity[i]?.value) {
+                switch (post.nudity[i].value) {
+                    case "POSSIBLE":
+                        blur = 3;
+                        break;
+                    case "LIKELY":
+                        blur = 10;
+                        break;
+                    case "VERY_LIKELY":
+                        blur = 20;
+                        break;
+                }
+                el.style['backdrop-filter'] = `blur(${blur}px)`;
+                return;
+            }
+        }
+    }
+
 }

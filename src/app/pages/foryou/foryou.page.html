@@ -17,7 +17,19 @@
                     </div>
 
                     <div class="post-container absolute-fill">
-                        <video #video autoplay loop volume="0" [attr.postId]="post._id">
+
+                        <div
+                            [id]="'filter-' + post._id"
+                            class="filter-container absolute-fill"
+                        ></div>
+
+                        <video
+                            #video
+                            autoplay loop volume="0"
+                            [attr.postId]="post._id"
+                            (playing)="videoPlaying($event, post)"
+                            (timeupdate)="videoPlaying($event, post)"
+                        >
                             <source [src]="post.videoUrl" type="video/mp4" />
                         </video>
 

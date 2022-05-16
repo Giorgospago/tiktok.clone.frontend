@@ -4,6 +4,7 @@ import {IComment} from "./IComment";
 import {IAudio} from "./IAudio";
 
 export type PostScope = "public" | "friends" | "private";
+export type NudityValue = 'UNKNOWN' | 'VERY_UNLIKELY' | 'UNLIKELY' | 'POSSIBLE' | 'LIKELY' | 'VERY_LIKELY';
 
 export interface IPost extends IModel {
     description: string;
@@ -21,6 +22,7 @@ export interface IPost extends IModel {
     views: any[];
     shares: any[];
     screenshots: any[];
+    nudity: IPostNudity[];
 }
 
 export interface IUploadPost {
@@ -28,6 +30,11 @@ export interface IUploadPost {
     description: string;
     scope: PostScope
     tags: string[];
+}
+
+export interface IPostNudity {
+    timestamp: number;
+    value: NudityValue;
 }
 
 

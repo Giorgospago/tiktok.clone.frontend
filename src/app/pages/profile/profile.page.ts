@@ -61,4 +61,12 @@ export class ProfilePage implements OnInit {
     public userFollowing(userId: string) {
         this.usersService.userFollowing(userId)
     }
+
+    public toggleTag(tag: string) {
+        this.usersService
+            .tagToggle(tag)
+            .subscribe(response => {
+                this.usersService.me().subscribe();
+            });
+    }
 }

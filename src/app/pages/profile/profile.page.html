@@ -33,6 +33,14 @@
 <!--        &lt;!&ndash; <div class="liked"></div> &ndash;&gt;-->
 <!--    </div>-->
 
+    <div>
+        <ion-button
+            [color]="user.tags.includes('no-blur') ? 'success' : 'danger'"
+            (click)="toggleTag('no-blur')">
+            Toggle: no-blur
+        </ion-button>
+    </div>
+
     <app-follow [user]="user"></app-follow>
 
     <div class="text-center">

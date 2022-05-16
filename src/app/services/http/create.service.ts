@@ -66,12 +66,15 @@ export class CreateService {
     }
 
     public uploadPost(form: IUploadPost) {
-        this.http
-            .post(environment.api + "/posts/create", form)
-            .subscribe(response => {
-                this.resetVideoInput();
-                this.router.navigate(["/profile"]);
-            });
+        return new Promise(resolve => {
+            this.http
+                .post(environment.api + "/posts/create", form)
+                .subscribe(response => {
+                    this.resetVideoInput();
+                    this.router.navigate(["/profile"]);
+                    resolve(true);
+                });
+        });
     }
 
 }

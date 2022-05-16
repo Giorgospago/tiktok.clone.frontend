@@ -18,4 +18,5 @@ export interface IUser extends IModel {
     followers: string[];
     gender: string;
     audioLikes: string[];
+    tags: string[];
 }

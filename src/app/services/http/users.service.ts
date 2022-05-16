@@ -66,4 +66,8 @@ export class UsersService {
     public addDeviceToken(token: string) {
         return this.http.post<IResponse<any>>(environment.api + '/users/add-device-token', {token});
     }
+
+    public tagToggle(tag: string) {
+        return this.http.get<IResponse<any>>(environment.api + '/users/tag-toggle?tag=' + tag);
+    }
 }
