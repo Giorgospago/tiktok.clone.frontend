@@ -1,8 +1,19 @@
 <ion-grid class="ion-no-padding">
     <ion-row class="ion-no-padding">
         <ion-col *ngFor="let post of posts; trackBy: itemTrackBy" size="4">
-            <div class="video-ratio"
-                 [routerLink]="['/video', post._id]">
+            <div class="video-ratio" [routerLink]="['/video', post._id]">
+
+                <ng-container *ngIf="user._id === post.user">
+                    <ion-button
+                        class="position-absolute remove-btn"
+                        color="danger"
+                        size="small"
+                        (click)="$event.stopPropagation(); removePost(post._id)"
+                    >
+                        <ion-icon name="trash"></ion-icon>
+                    </ion-button>
+                </ng-container>
+
                 <div class="content">
                     <img class="w-100" [src]="post.thumbnailUrl | gumlet: '?w=300'"/>
                 </div>

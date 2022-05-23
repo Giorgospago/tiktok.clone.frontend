@@ -21,6 +21,10 @@ export class PostsService {
         return this.http.post<IResponse<IPost[]>>(environment.api + "/posts/search", options);
     }
 
+    public removeById(postId: string) {
+        return this.http.delete<IResponse<any>>(environment.api + "/posts/" + postId);
+    }
+
     public textSearch(options: IPostTextSearchOptions) {
         return this.http.post<IResponse<IPostTextSearchResult>>(environment.api + "/posts/text-search", options);
     }
